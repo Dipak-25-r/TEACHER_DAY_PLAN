@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="gu" class="h-full scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Std 12 Maths - Chapter 3 Matrices (વ્યાખ્યા થી શ્રેણિકોની સમાનતા + 15 MCQ)</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#020617',
+                            card: '#0f172a',
+                            border: '#1e293b',
+                            accent: '#38bdf8',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            purple: '#a855f7',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans Gujarati"', 'Poppins', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background-color: #020617;
+            color: #f8fafc;
+            font-family: 'Noto Sans Gujarati', 'Poppins', sans-serif;
+        }
+
+        /* Continuous Scroll Mode override */
+        body.scroll-mode {
+            overflow-y: auto !important;
+        }
+
+        body.scroll-mode #presentation-controls {
+            display: none !important;
+        }
+
+        body.scroll-mode .slide-stage {
+            height: auto !important;
+            overflow: visible !important;
+        }
+
+        body.scroll-mode .slide-item {
+            display: flex !important;
+            opacity: 1 !important;
+            position: relative !important;
+            transform: none !important;
+            margin-bottom: 2.5rem;
+            min-height: auto !important;
+        }
+
+        /* Matrix bracket styling */
+        .math-matrix-bracket {
+            position: relative;
+            padding: 6px 16px;
+        }
+
+        .math-matrix-bracket::before,
+        .math-matrix-bracket::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            border: 2px solid #38bdf8;
+        }
+
+        .math-matrix-bracket::before {
+            left: 0;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .math-matrix-bracket::after {
+            right: 0;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Slide Transition Engine */
+        .slide-item {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.98);
+            transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+            overflow-y: auto;
+        }
+
+        .slide-item.active-slide {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        /* Custom Scrollbars */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-full bg-slate-950 text-slate-100 select-none antialiased">
+
+    <!-- Top Progress Bar -->
+    <div class="w-full h-1 bg-slate-800 z-50">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-sky-400 via-emerald-400 to-amber-400 w-0 transition-all duration-300"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="h-14 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-4 flex items-center justify-between shrink-0 z-40">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center font-extrabold text-slate-950 text-sm shadow-md shadow-sky-500/20">
+                [M]
+            </div>
+            <div class="truncate">
+                <span class="text-[10px] text-emerald-400 font-bold tracking-wider uppercase">Std 12 Maths GSEB (Ch 3)</span>
+                <h1 class="text-xs sm:text-sm font-bold text-slate-100 truncate">શ્રેણિક: વ્યાખ્યા થી શ્રેણિકોની સમાનતા (+15 MCQ)</h1>
+            </div>
+        </div>
+
+        <!-- Mode & Tools Controls -->
+        <div class="flex items-center space-x-2">
+            <!-- Fullscreen Button -->
+            <button onclick="toggleFullscreen()" title="ફુલસ્ક્રીન મોડ" class="p-2 bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700 rounded-lg text-xs transition">
+                <i class="fa-solid fa-expand" id="fullscreen-icon"></i>
+            </button>
+
+            <!-- View Switcher -->
+            <button onclick="toggleViewMode()" id="view-mode-btn" class="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700 text-xs font-semibold rounded-lg transition">
+                <i class="fa-solid fa-scroll"></i>
+                <span id="view-mode-text" class="hidden sm:inline">વેબ પેજ મોડ</span>
+            </button>
+
+            <!-- Table of Contents Drawer Toggle -->
+            <button onclick="toggleDrawer()" class="flex items-center space-x-1.5 px-3 py-1.5 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 text-xs font-semibold rounded-lg transition">
+                <i class="fa-solid fa-bars-staggered"></i>
+                <span class="hidden sm:inline">અનુક્રમણિકા</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Drawer Sidebar Menu -->
+    <div id="drawer-menu" class="fixed inset-y-0 right-0 w-72 sm:w-80 bg-slate-900 border-l border-slate-800 z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+        <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+            <h3 class="font-bold text-sky-400 text-sm flex items-center gap-2">
+                <i class="fa-solid fa-book-open"></i> સ્લાઇડ અનુક્રમણિકા
+            </h3>
+            <button onclick="toggleDrawer(false)" class="text-slate-400 hover:text-white p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <div class="p-3 overflow-y-auto flex-1 custom-scrollbar space-y-2" id="toc-container">
+            <!-- Populated via JavaScript -->
+        </div>
+    </div>
+    <div id="drawer-backdrop" onclick="toggleDrawer(false)" class="fixed inset-0 bg-black/70 z-40 hidden backdrop-blur-sm"></div>
+
+    <main class="flex-1 relative w-full overflow-hidden p-3 sm:p-6 slide-stage">
+        <div id="deck-wrapper" class="w-full h-full max-w-6xl mx-auto relative">
+
+            <!-- SLIDE 1: Title Hero -->
+            <section id="sec-1" class="slide-item active-slide bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-10 justify-center items-center text-center shadow-2xl custom-scrollbar">
+                <div class="absolute top-0 right-0 w-72 h-72 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <span class="px-3.5 py-1 bg-emerald-500/10 text-emerald-400 font-semibold rounded-full text-xs border border-emerald-500/30 mb-4">
+                    ગુજરાતી માધ્યમ | વિજ્ઞાન પ્રવાહ (ગણિત) - ધોરણ ૧૨
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400 mb-4 leading-tight">
+                    પ્રકરણ ૩: શ્રેણિક (Matrices)
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base max-w-2xl font-light mb-6 leading-relaxed">
+                    અભ્યાસક્રમ: શ્રેણિકની વ્યાખ્યા, કક્ષા (Order), શ્રેણિકના ૭ પ્રકારો અને શ્રેણિકોની સમાનતા (Equality of Matrices) સુધી.
+                </p>
+                
+                <div class="flex flex-wrap gap-3 justify-center mb-8">
+                    <span class="px-3 py-1 bg-slate-800 text-sky-300 rounded-lg text-xs font-mono border border-slate-700">૩.૧ પ્રસ્તાવના</span>
+                    <span class="px-3 py-1 bg-slate-800 text-sky-300 rounded-lg text-xs font-mono border border-slate-700">૩.૨ વ્યાખ્યા & કક્ષા</span>
+                    <span class="px-3 py-1 bg-slate-800 text-sky-300 rounded-lg text-xs font-mono border border-slate-700">૩.૩ પ્રકારો</span>
+                    <span class="px-3 py-1 bg-slate-800 text-sky-300 rounded-lg text-xs font-mono border border-slate-700">૩.૪ સમાન શ્રેણિકો</span>
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-lg text-xs font-bold border border-emerald-500/40">૧૫ અગત્યના MCQ</span>
+                </div>
+
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <button onclick="changeSlide(1)" class="px-6 py-3 bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-slate-950 font-bold rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                        <span>અભ્યાસ શરૂ કરો</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <button onclick="navigateTo(12)" class="px-5 py-3 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold rounded-xl text-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span>૧૫ MCQ ક્વિઝ પર જાઓ</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: Introduction -->
+            <section id="sec-2" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-10 justify-center items-center text-center shadow-2xl custom-scrollbar">
+                <div class="w-16 h-1.5 bg-emerald-500 rounded-full mb-6"></div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-sky-400 mb-4">
+                    ૩.૧ પ્રસ્તાવના: દૈનિક જીવન અને શ્રેણિક
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed mb-6">
+                    રોજિંદા જીવનમાં જટિલ વિગતો અને ડેટાને જ્યારે લંબચોરસ કૌંસ કે કોષ્ટકીય ગોઠવણી (Rectangular Array) સ્વરૂપે દર્શાવવામાં આવે છે, ત્યારે તે ગણિતમાં **શ્રેણિક** નો પાયો બને છે.
+                </p>
+                <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 text-slate-300 text-xs sm:text-sm max-w-lg">
+                    <i class="fa-solid fa-lightbulb text-amber-400 mr-2"></i>
+                    શ્રેણિક એ વિજ્ઞાન, કમ્પ્યુટર સાયન્સ, આંકડાશાસ્ત્ર અને કોડિંગમાં ડેટા ગોઠવવાની સૌથી મહત્વપૂર્ણ પદ્ધતિ છે.
+                </div>
+            </section>
+
+            <!-- SLIDE 3: Real Life Example -->
+            <section id="sec-3" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <h2 class="text-lg sm:text-2xl font-bold text-sky-400 border-b border-slate-800 pb-3">
+                    દૈનિક માહિતી પરથી શ્રેણિકની બનાવટ
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-auto">
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-3">
+                        <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-2">
+                            <i class="fa-solid fa-table"></i> ૧. વિદ્યાર્થીઓના ગુણનું કોષ્ટક
+                        </h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+                                <thead class="bg-slate-950 text-sky-400 font-semibold border-b border-slate-700">
+                                    <tr>
+                                        <th class="p-2.5">વિદ્યાર્થી</th>
+                                        <th class="p-2.5">ગણિત</th>
+                                        <th class="p-2.5">ભૌતિક</th>
+                                        <th class="p-2.5">રસાયણ</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-700/50">
+                                    <tr>
+                                        <td class="p-2.5 font-medium text-slate-200">રમેશ</td>
+                                        <td class="p-2.5 text-sky-300 font-mono">95</td>
+                                        <td class="p-2.5 text-sky-300 font-mono">90</td>
+                                        <td class="p-2.5 text-sky-300 font-mono">88</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2.5 font-medium text-slate-200">સુરેશ</td>
+                                        <td class="p-2.5 text-emerald-300 font-mono">85</td>
+                                        <td class="p-2.5 text-emerald-300 font-mono">92</td>
+                                        <td class="p-2.5 text-emerald-300 font-mono">94</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-6 rounded-xl border border-sky-500/30 flex flex-col items-center justify-center text-center">
+                        <span class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">શ્રેણિક સ્વરૂપ (Matrix Notation)</span>
+                        <div class="flex items-center text-xl sm:text-2xl font-mono text-emerald-400 math-matrix-bracket space-x-6 py-2">
+                            <div class="space-y-2">
+                                <div>95</div>
+                                <div>85</div>
+                            </div>
+                            <div class="space-y-2">
+                                <div>90</div>
+                                <div>92</div>
+                            </div>
+                            <div class="space-y-2">
+                                <div>88</div>
+                                <div>94</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-xs text-slate-300 space-y-1">
+                            <p><span class="text-sky-400 font-semibold">૨ આડી હાર (Rows)</span> | <span class="text-emerald-400 font-semibold">૩ ઊભા સ્તંભ (Columns)</span></p>
+                            <span class="inline-block mt-1 px-3 py-1 bg-sky-500/20 text-sky-300 rounded-full font-bold font-mono text-xs">કક્ષા = 2 × 3</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: Definition & Notation -->
+            <section id="sec-4" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <h2 class="text-lg sm:text-2xl font-bold text-sky-400 border-b border-slate-800 pb-3">
+                    ૩.૨ શ્રેણિકની વ્યાખ્યા અને સંજ્ઞા
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+                    <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700 space-y-3">
+                        <h3 class="font-bold text-emerald-400 text-sm sm:text-base">વ્યાખ્યા (Definition):</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            સંખ્યાઓ (વાસ્તવિક કે સંકીર્ણ) અથવા વિધેયોની ચોક્કસ <strong>લંબચોરસ ગોઠવણી (Rectangular Array)</strong> ને શ્રેણિક કહે છે. તેમાં રહેલી સંખ્યાઓને શ્રેણિકના <strong>ઘટકો (Elements / Entries)</strong> કહે છે.
+                        </p>
+                    </div>
+                    <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700 space-y-3">
+                        <h3 class="font-bold text-sky-400 text-sm sm:text-base">સામાન્ય સંજ્ઞા (Notation):</h3>
+                        <p class="text-xs text-slate-300">શ્રેણિકને Capital અક્ષરો A, B, C... અને ઘટકોને Small અક્ષર <code class="text-emerald-400 font-bold">a<sub>ij</sub></code> વડે દર્શાવાય છે.</p>
+                        <div class="text-center p-3 bg-slate-950 rounded-xl border border-slate-800 font-mono text-emerald-400 text-base">
+                            A = [a<sub>ij</sub>]<sub>m × n</sub>
+                        </div>
+                        <p class="text-[11px] text-slate-400">જ્યાં i = હારનો ક્રમાંક (1, 2, ..., m) અને j = સ્તંભનો ક્રમાંક (1, 2, ..., n)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: Order of Matrix -->
+            <section id="sec-5" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <h2 class="text-lg sm:text-2xl font-bold text-sky-400 border-b border-slate-800 pb-3">
+                    શ્રેણિકની કક્ષા (Order of Matrix)
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-auto">
+                    <div class="bg-slate-950 p-6 rounded-2xl border border-emerald-500/30 text-center space-y-3">
+                        <div class="text-5xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-sky-400 font-mono">
+                            m × n
+                        </div>
+                        <div class="text-base font-bold text-sky-300">
+                            હારની સંખ્યા (m) × સ્તંભની સંખ્યા (n)
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-slate-300 text-xs sm:text-sm">
+                        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700">
+                            <h3 class="font-bold text-emerald-400 text-sm mb-1">કુલ ઘટકોની ગણતરી:</h3>
+                            <p class="leading-relaxed">m × n કક્ષા વાળા શ્રેણિકમાં કુલ ઘટકોની સંખ્યા m અને n નો ગુણાકાર ગુણાકાર કરવાથી મળે છે.</p>
+                        </div>
+                        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700">
+                            <h3 class="font-bold text-sky-400 text-xs mb-2">ઉદાહરણો:</h3>
+                            <ul class="space-y-1 text-slate-300 list-disc list-inside">
+                                <li>3 હાર અને 4 સ્તંભ ➔ કક્ષા <strong>3 × 4</strong> (કુલ 12 ઘટકો)</li>
+                                <li>1 હાર અને 5 સ્તંભ ➔ કક્ષા <strong>1 × 5</strong> (કુલ 5 ઘટકો)</li>
+                                <li>3 હાર અને 3 સ્તંભ ➔ કક્ષા <strong>3 × 3</strong> (કુલ 9 ઘટકો)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: Types - Row & Column -->
+            <section id="sec-6" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <h2 class="text-lg sm:text-2xl font-bold text-sky-400 border-b border-slate-800 pb-3">
+                    ૩.૩ શ્રેણિકના પ્રકારો: ૧. સ્તંભ શ્રેણિક અને ૨. હાર શ્રેણિક
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+                    <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-bold text-emerald-400">૧. સ્તંભ શ્રેણિક (Column Matrix)</h3>
+                            <span class="text-xs px-2 py-0.5 bg-slate-950 text-sky-400 font-mono rounded">m × 1</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300">જે શ્રેણિકમાં <strong>માત્ર ૧ જ સ્તંભ (Single Column)</strong> હોય.</p>
+                        <div class="bg-slate-950 p-3 rounded-lg flex justify-center items-center border border-slate-800">
+                            <div class="math-matrix-bracket text-emerald-400 font-mono text-base space-y-1 text-center">
+                                <div>1</div><div>5</div><div>-9</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-bold text-sky-400">૨. હાર શ્રેણિક (Row Matrix)</h3>
+                            <span class="text-xs px-2 py-0.5 bg-slate-950 text-emerald-400 font-mono rounded">1 × n</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300">જે શ્રેણિકમાં <strong>માત્ર ૧ જ હાર (Single Row)</strong> હોય.</p>
+                        <div class="bg-slate-950 p-4 rounded-lg flex justify-center items-center border border-slate-800">
+                            <div class="math-matrix-bracket text-sky-400 font-mono text-base flex gap-5">
+                                <span>2</span><span>-4</span><span>7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: Square & Diagonal Matrix -->
+            <section id="sec-7" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <h2 class="text-lg sm:text-2xl font-bold text-sky-400 border-b border-slate-800 pb-3">
+                    ૩. ચોરસ શ્રેણિક અને ૪. વિકર્ણ શ્રેણિક
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+                    <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700 space-y-3">
+                        <h3 class="text-base font-bold text-amber-400">૩. ચોરસ શ્રેણિક (Square Matrix)</h3>
+                        <p class="text-xs sm:text-sm text-slate-300">હાર અને સ્તંભની સંખ્યા સમાન હોય (<strong>m = n</strong>).</p>
+                        <div class="bg-slate-950 p-4 rounded-lg flex justify-center items-center border border-slate-800">
+                            <div class="math-matrix-bracket text-amber-400 font-mono text-sm grid grid-cols-2 gap-x-6 gap-y-2 text-center">
+                                <div>3</div><div>8</div><div>4</div><div>1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700 space-y-3">
+                        <h3 class="text-base font-bold text-sky-400">૪. વિકર્ણ શ્રેણિક (Diagonal Matrix)</h3>
+                        <p class="text-xs sm:text-sm text-slate-300">મુખ્ય વિકર્ણ સિવાયના તમામ ઘટકો શૂન્ય હોય (<code class="text-emerald-400">a<sub>ij</sub> = 0</code> જ્યારે <code class="text-emerald-400">i ≠ j</code>).</p>
+                        <div class="bg-slate-950 p-4 rounded-lg flex justify-center items-center border border-slate-800">
+                            <div class="math-matrix-bracket text-slate-500 font-mono text-sm grid grid-cols-3 gap-x-4 gap-y-1 text-center">
+                                <div class="text-emerald-400 font-bold">5</div><div>0</div><div>0</div>
+                                <div>0</div><div class="text-emerald-400 font-bold">8</div><div>0</div>
+                                <div>0</div><div>0</div><div class="text-emerald-400 font-bold">-2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: Scalar, Identity & Zero Matrix -->
+            <section id="sec-8" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <h2 class="text-lg sm:text-2xl font-bold text-sky-400 border-b border-slate-800 pb-3">
+                    ૫. અદિશ, ૬. એકમ અને ૭. શૂન્ય શ્રેણિક
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto">
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <h3 class="font-bold text-emerald-400 text-sm">૫. અદિશ (Scalar)</h3>
+                        <p class="text-xs text-slate-300">વિકર્ણના તમામ ઘટકો સમાન હોય (<code class="text-emerald-400">a<sub>ii</sub> = k</code>).</p>
+                        <div class="bg-slate-950 p-3 rounded-lg flex justify-center items-center font-mono text-emerald-400 math-matrix-bracket">
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-center">
+                                <div>4</div><div class="text-slate-600">0</div>
+                                <div class="text-slate-600">0</div><div>4</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <h3 class="font-bold text-sky-400 text-sm">૬. એકમ (Identity - I)</h3>
+                        <p class="text-xs text-slate-300">વિકર્ણના તમામ ઘટકો <strong>૧ (One)</strong> હોય.</p>
+                        <div class="bg-slate-950 p-3 rounded-lg flex justify-center items-center font-mono text-sky-400 math-matrix-bracket">
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-center">
+                                <div>1</div><div class="text-slate-600">0</div>
+                                <div class="text-slate-600">0</div><div>1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <h3 class="font-bold text-amber-400 text-sm">૭. શૂન્ય (Zero - O)</h3>
+                        <p class="text-xs text-slate-300">તમામ ઘટકો <strong>૦ (Zero)</strong> હોય.</p>
+                        <div class="bg-slate-950 p-3 rounded-lg flex justify-center items-center font-mono text-amber-400 math-matrix-bracket">
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-center">
+                                <div>0</div><div>0</div>
+                                <div>0</div><div>0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: Equality of Matrices -->
+            <section id="sec-9" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <h2 class="text-lg sm:text-2xl font-bold text-sky-400 border-b border-slate-800 pb-3">
+                    ૩.૪ શ્રેણિકોની સમાનતા (Equality / Similarity of Matrices)
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+                    <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700 space-y-3">
+                        <h3 class="font-bold text-emerald-400 text-sm sm:text-base">સમાનતા માટેની બે જરૂરી શરતો:</h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-300 list-disc list-inside">
+                            <li><strong>૧. કક્ષા સમાન હોવી જોઈએ:</strong> શ્રેણિક A અને B બંનેની કક્ષા સમાન (મૂળ પરિમાણ) હોવી જોઈએ.</li>
+                            <li><strong>૨. અનુરૂપ ઘટકો સમાન હોવા જોઈએ:</strong> દરેક i અને j માટે <code class="text-sky-400 font-mono font-bold">a<sub>ij</sub> = b<sub>ij</sub></code> હોવું જોઈએ.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700 space-y-3">
+                        <h3 class="font-bold text-sky-400 text-sm sm:text-base">ઉદાહરણ (Example):</h3>
+                        <p class="text-xs text-slate-300">જો નીચેના બે શ્રેણિકો સમાન હોય:</p>
+                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-center text-emerald-400">
+                            [x + y &nbsp; 2] = [5 &nbsp; 2]  ➔  x + y = 5
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-center text-amber-300">
+                            [x &nbsp; y] = [3 &nbsp; 4]  ➔  x = 3, y = 4
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10: Live Matrix Customizer Tool -->
+            <section id="sec-10" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-3 gap-2">
+                    <h2 class="text-lg sm:text-2xl font-bold text-sky-400">
+                        લાઇવ શ્રેણિક ટૂલ (પ્રકાર અને ચકાસણી)
+                    </h2>
+                    <span id="matrix-type-badge" class="text-xs px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full font-semibold">ચકાસણી ચાલુ...</span>
+                </div>
+
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 my-auto">
+                    <div class="flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm">
+                        <div class="flex items-center gap-3">
+                            <label class="text-slate-400">હાર (m):</label>
+                            <input type="number" id="input-rows" min="1" max="4" value="2" onchange="generateMatrixGrid()" class="w-14 bg-slate-800 border border-slate-700 rounded-lg text-center text-white font-bold py-1">
+                            <label class="text-slate-400 ml-2">સ્તંભ (n):</label>
+                            <input type="number" id="input-cols" min="1" max="4" value="2" onchange="generateMatrixGrid()" class="w-14 bg-slate-800 border border-slate-700 rounded-lg text-center text-white font-bold py-1">
+                        </div>
+                        <button onclick="resetMatrixGrid()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700 transition">
+                            રીસેટ
+                        </button>
+                    </div>
+
+                    <div id="matrix-grid-container" class="flex justify-center py-4 overflow-x-auto custom-scrollbar">
+                        <!-- Dynamic Grid populated via JS -->
+                    </div>
+
+                    <div class="text-center text-xs text-slate-400 border-t border-slate-800 pt-3">
+                        શ્રેણિક કક્ષા: <span id="label-order" class="text-sky-400 font-bold font-mono text-sm">2 × 2</span> | 
+                        કુલ ઘટકો = <span id="label-count" class="text-emerald-400 font-bold font-mono text-sm">4</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 11: Summary Comparison Table -->
+            <section id="sec-11" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <h2 class="text-lg sm:text-2xl font-bold text-sky-400 border-b border-slate-800 pb-3">
+                    શ્રેણિકના પ્રકારો અને સમાનતાનું કોષ્ટક
+                </h2>
+
+                <div class="overflow-x-auto my-auto rounded-xl border border-slate-700 shadow-lg">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+                        <thead class="bg-slate-800 text-sky-400 font-bold border-b border-slate-700">
+                            <tr>
+                                <th class="p-3">પ્રકાર / વિભાવના</th>
+                                <th class="p-3">કક્ષા / શરત</th>
+                                <th class="p-3">મુખ્ય લાક્ષણિકતા</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 bg-slate-950">
+                            <tr><td class="p-3 font-semibold text-emerald-400">સ્તંભ શ્રેણિક</td><td class="p-3 font-mono text-slate-400">m × 1</td><td class="p-3">માત્ર ૧ જ સ્તંભ હોય</td></tr>
+                            <tr><td class="p-3 font-semibold text-emerald-400">હાર શ્રેણિક</td><td class="p-3 font-mono text-slate-400">1 × n</td><td class="p-3">માત્ર ૧ જ હાર હોય</td></tr>
+                            <tr><td class="p-3 font-semibold text-amber-400">ચોરસ શ્રેણિક</td><td class="p-3 font-mono text-slate-400">n × n (m = n)</td><td class="p-3">હાર અને સ્તંભની સંખ્યા સમાન</td></tr>
+                            <tr><td class="p-3 font-semibold text-sky-400">વિકર્ણ શ્રેણિક</td><td class="p-3 font-mono text-slate-400">n × n</td><td class="p-3">વિકર્ણ સિવાયના તમામ ઘટકો = 0</td></tr>
+                            <tr><td class="p-3 font-semibold text-sky-400">અદિશ શ્રેણિક</td><td class="p-3 font-mono text-slate-400">n × n</td><td class="p-3">વિકર્ણના તમામ ઘટકો સમાન</td></tr>
+                            <tr><td class="p-3 font-semibold text-sky-400">એકમ શ્રેણિક (I)</td><td class="p-3 font-mono text-slate-400">n × n</td><td class="p-3">વિકર્ણના ઘટકો = 1, બાકી = 0</td></tr>
+                            <tr><td class="p-3 font-semibold text-purple-400">સમાન શ્રેણિકો (A = B)</td><td class="p-3 font-mono text-slate-400">કક્ષા સમાન</td><td class="p-3">તમામ અનુરૂપ ઘટકો સમાન (a<sub>ij</sub> = b<sub>ij</sub>)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SLIDE 12: 15 MCQ Interactive Quiz -->
+            <section id="sec-12" class="slide-item bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 justify-between shadow-2xl custom-scrollbar space-y-4">
+                <!-- Quiz Header Bar -->
+                <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-3 gap-2">
+                    <div>
+                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">સ્વાધ્યાય ચકાસણી (વ્યાખ્યા થી સમાનતા)</span>
+                        <h2 class="text-lg sm:text-2xl font-bold text-sky-400">
+                            ૧૫ અગત્યના MCQ નો મહા-ક્વિઝ
+                        </h2>
+                    </div>
+                    <div id="badge-score" class="px-4 py-1.5 bg-emerald-500/20 text-emerald-400 text-xs sm:text-sm rounded-full font-bold border border-emerald-500/30">
+                        સ્કોર: 0 / 15
+                    </div>
+                </div>
+
+                <!-- MCQ Interactive Dynamic Box -->
+                <div id="quiz-box" class="my-auto bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4 max-w-3xl mx-auto w-full">
+                    <!-- Dynamic Question populated by JS -->
+                </div>
+
+                <!-- 15 Question Navigator Grid -->
+                <div class="space-y-2 pt-2 border-t border-slate-800">
+                    <div class="flex justify-between items-center text-xs text-slate-400">
+                        <span>પ્રશ્ન પસંદગી ગ્રીડ:</span>
+                        <button onclick="restartQuiz()" class="text-sky-400 hover:underline font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right text-xs"></i> ક્વિઝ રીસેટ કરો
+                        </button>
+                    </div>
+                    <div id="quiz-nav-grid" class="flex flex-wrap gap-1.5 justify-center">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Sticky Presentation Control Bar -->
+    <footer id="presentation-controls" class="h-14 bg-slate-900/95 border-t border-slate-800 px-4 sm:px-8 flex items-center justify-between shrink-0 z-40">
+        <!-- Previous Button -->
+        <button onclick="changeSlide(-1)" id="btn-prev" class="flex items-center space-x-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 font-semibold text-xs sm:text-sm rounded-xl transition border border-slate-700">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>પાછળ</span>
+        </button>
+
+        <!-- Slide Indicators & Counter -->
+        <div class="flex items-center space-x-3">
+            <span class="text-xs sm:text-sm font-mono text-sky-400 bg-slate-950 px-3 py-1 rounded-lg border border-slate-800">
+                <span id="active-num">1</span> / <span id="total-num">12</span>
+            </span>
+            <div id="dot-indicators" class="hidden md:flex items-center space-x-1.5">
+                <!-- Dots populated by JS -->
+            </div>
+        </div>
+
+        <!-- Next Button -->
+        <button onclick="changeSlide(1)" id="btn-next" class="flex items-center space-x-2 px-5 py-2 bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-slate-950 font-bold text-xs sm:text-sm rounded-xl shadow-lg transition">
+            <span>આગળ</span>
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </footer>
+
+    <script>
+        // Core Presentation State
+        let currentSlide = 1;
+        const totalSlides = 12;
+        let isScrollMode = false;
+
+        const titles = [
+            "૧. મુખ્ય શીર્ષક (Intro)",
+            "૨. ૩.૧ પ્રસ્તાવના",
+            "૩. દૈનિક ઉદાહરણથી શ્રેણિક",
+            "૪. ૩.૨ વ્યાખ્યા અને સંજ્ઞા",
+            "૫. શ્રેણિકની કક્ષા (m × n)",
+            "૬. સ્તંભ અને હાર શ્રેણિક",
+            "૭. ચોરસ અને વિકર્ણ શ્રેણિક",
+            "૮. અદિશ, એકમ અને શૂન્ય શ્રેણિક",
+            "૯. શ્રેણિકોની સમાનતા (Equality)",
+            "૧૦. લાઇવ શ્રેણિક ટૂલ",
+            "૧૧. પ્રકારોનું સારાંશ કોષ્ટક",
+            "૧૨. ૧૫ અગત્યના MCQ ક્વિઝ"
+        ];
+
+        // 15 Complete MCQs strictly up to Equality of Matrices
+        const quizData = [
+            {
+                q: "૧. શ્રેણિક A ની કક્ષા 3 × 4 હોય, તો શ્રેણિક A માં કુલ કેટલા ઘટકો હોય?",
+                opts: ["7", "12", "9", "14"],
+                ans: 1,
+                exp: "કુલ ઘટકો = m × n = 3 × 4 = 12 થાય."
+            },
+            {
+                q: "૨. જે શ્રેણિકમાં માત્ર ૧ જ આડી હાર હોય તેને કયો શ્રેણિક કહેવાય?",
+                opts: ["સ્તંભ શ્રેણિક", "હાર શ્રેણિક", "ચોરસ શ્રેણિક", "એકમ શ્રેણિક"],
+                ans: 1,
+                exp: "જે શ્રેણિકમાં માત્ર 1 જ હાર હોય (1 × n) તેને હાર શ્રેણિક (Row Matrix) કહે છે."
+            },
+            {
+                q: "૩. m × n કક્ષા ધરાવતો શ્રેણિક ચોરસ શ્રેણિક ક્યારે બને?",
+                opts: ["m < n", "m > n", "m = n", "m = 1"],
+                ans: 2,
+                exp: "ચોરસ શ્રેણિકમાં હારની સંખ્યા (m) અને સ્તંભની સંખ્યા (n) સમાન (m = n) હોય છે."
+            },
+            {
+                q: "૪. શ્રેણિક A = [a_ij]_(3×3) માટે જો i ≠ j હોય ત્યારે a_ij = 0 અને i = j હોય ત્યારે a_ij = k (k ≠ 0) હોય, તો A કયો શ્રેણિક છે?",
+                opts: ["સ્તંભ શ્રેણિક", "વિકર્ણ શ્રેણિક", "અદિશ શ્રેણિક", "શૂન્ય શ્રેણિક"],
+                ans: 2,
+                exp: "મુખ્ય વિકર્ણના તમામ ઘટકો k (સમાન) હોય તેને અદિશ શ્રેણિક (Scalar Matrix) કહેવાય."
+            },
+            {
+                q: "૫. જો [x + y   2] = [5   2] હોય, તો x + y ની કિંમત કેટલી થાય?",
+                opts: ["2", "5", "7", "3"],
+                ans: 1,
+                exp: "સમાન શ્રેણિકોના અનુરૂપ ઘટકો સરખાવતા: x + y = 5 મળે."
+            },
+            {
+                q: "૬. જે વિકર્ણ શ્રેણિકના મુખ્ય વિકર્ણના તમામ ઘટકો 1 હોય તેને કયો શ્રેણિક કહેવાય?",
+                opts: ["અદિશ શ્રેણિક", "એકમ શ્રેણિક (Identity Matrix)", "શૂન્ય શ્રેણિક", "હાર શ્રેણિક"],
+                ans: 1,
+                exp: "વિકર્ણના તમામ ઘટકો 1 ધરાવતા શ્રેણિકને એકમ શ્રેણિક (Identity Matrix) કહે છે."
+            },
+            {
+                q: "૭. શ્રેણિક A = [a_ij]_(2×3) માં ઘટક a_23 કઈ હાર અને કયા સ્તંભમાં રહેલો છે?",
+                opts: ["૨જી હાર અને ૩જો સ્તંભ", "૩જી હાર અને ૨જો સ્તંભ", "૧લી હાર અને ૩જો સ્તંભ", "૨જી હાર અને ૨જો સ્તંભ"],
+                ans: 0,
+                exp: "a_ij માં પ્રથમ સંકેત i હાર અને બીજો સંકેત j સ્તંભ દર્શાવે છે. માટે a_23 એ ૨જી હાર અને ૩જા સ્તંભનો ઘટક છે."
+            },
+            {
+                q: "૮. જો એક શ્રેણિકમાં 8 ઘટકો હોય, તો તેની શક્ય કક્ષાઓ (Possible Orders) ની સંખ્યા કેટલી હોઈ શકે?",
+                opts: ["2", "3", "4", "6"],
+                ans: 2,
+                exp: "8 ના અવયવોની જોડ: 1×8, 8×1, 2×4, 4×2. આથી કુલ 4 શક્ય કક્ષાઓ બને."
+            },
+            {
+                q: "૯. બે શ્રેણિકો A અને B સમાન શ્રેણિકો (A = B) હોવા માટેની મુખ્ય શરત કઈ છે?",
+                opts: ["ફક્ત તેમની કક્ષા સમાન હોય", "તેમની કક્ષા સમાન હોય અને તમામ અનુરૂપ ઘટકો સમાન હોય (a_ij = b_ij)", "તેમના તમામ ઘટકો શૂન્ય હોય", "A અને B બંને ચોરસ શ્રેણિક હોય"],
+                ans: 1,
+                exp: "સમાન શ્રેણિકો માટે કક્ષા સમાન હોવી જોઈએ અને દરેક i, j માટે a_ij = b_ij થવું જોઈએ."
+            },
+            {
+                q: "૧૦. જો [x  y ; z  w] = [1  3 ; 0  5] હોય, તો x + w નું મૂલ્ય કેટલું થાય?",
+                opts: ["4", "6", "8", "3"],
+                ans: 1,
+                exp: "અનુરૂપ ઘટકો સરખાવતા: x = 1 અને w = 5. આથી x + w = 1 + 5 = 6 થાય."
+            },
+            {
+                q: "૧૧. શૂન્ય શ્રેણિક (Zero Matrix - O) ની કક્ષા કઈ હોઈ શકે?",
+                opts: ["ફક્ત ચોરસ કક્ષા (n × n)", "ફક્ત 1 × 1", "કોઈ પણ કક્ષા (m × n)", "ફક્ત 1 × n"],
+                ans: 2,
+                exp: "શૂન્ય શ્રેણિક કોઈ પણ કક્ષા (m × n) નો હોઈ શકે છે જેના તમામ ઘટકો 0 હોય."
+            },
+            {
+                q: "૧૨. 3 × 3 કક્ષાના એવા શ્રેણિકોની સંખ્યા કેટલી મળે જેના તમામ ઘટકો 0 અથવા 1 હોય?",
+                opts: ["27", "18", "81", "512"],
+                ans: 3,
+                exp: "3 × 3 કક્ષાના શ્રેણિકમાં 9 ઘટકો હોય. દરેક સ્થાન 2 રીતે (0 અથવા 1) ભરી શકાય. કુલ સંખ્યા = 2^9 = 512."
+            },
+            {
+                q: "૧૩. જો a_ij = (1/2)|i - 3j| દ્વારા વ્યાખ્યાયિત શ્રેણિક A = [a_ij]_(2×2) હોય, તો ઘટક a_12 ની કિંમત શોધો.",
+                opts: ["1", "2", "5/2", "3/2"],
+                ans: 2,
+                exp: "a_12 માટે i=1, j=2 મૂકતાં: (1/2)|1 - 3(2)| = (1/2)|1 - 6| = (1/2)|-5| = 5/2."
+            },
+            {
+                q: "૧૪. એકમ શ્રેણિક I_3 (Identity Matrix of order 3) ની કક્ષા કેટલી હોય?",
+                opts: ["1 × 3", "3 × 1", "3 × 3", "9 × 9"],
+                ans: 2,
+                exp: "I_3 એ 3 પરિમાણવાળો ચોરસ એકમ શ્રેણિક છે જેની કક્ષા 3 × 3 હોય છે."
+            },
+            {
+                q: "૧૫. જો [2x+y   5 ; 0   y] = [7   5 ; 0   3] હોય, તો x ની કિંમત કેટલી થાય?",
+                opts: ["2", "3", "1", "4"],
+                ans: 0,
+                exp: "અનુરૂપ ઘટકો સરખાવતા: y = 3. હવે 2x + y = 7 => 2x + 3 = 7 => 2x = 4 => x = 2."
+            }
+        ];
+
+        let quizUserAnswers = Array(15).fill(null);
+        let currentQuizIdx = 0;
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('total-num').textContent = totalSlides;
+            buildTOC();
+            buildDots();
+            showSlide(currentSlide);
+            generateMatrixGrid();
+            initQuizNavGrid();
+            loadQuizQuestion(0);
+            setupTouchGestures();
+        });
+
+        // Slide Controller Engine
+        function showSlide(n) {
+            if (isScrollMode) return;
+            
+            if (n < 1) n = 1;
+            if (n > totalSlides) n = totalSlides;
+
+            currentSlide = n;
+
+            for (let i = 1; i <= totalSlides; i++) {
+                const el = document.getElementById(`sec-${i}`);
+                if (el) {
+                    if (i === n) {
+                        el.classList.add('active-slide');
+                    } else {
+                        el.classList.remove('active-slide');
+                    }
+                }
+            }
+
+            // Update Progress Bar & Numbers
+            document.getElementById('active-num').textContent = n;
+            document.getElementById('btn-prev').disabled = (n === 1);
+            document.getElementById('btn-next').disabled = (n === totalSlides);
+
+            const percent = ((n - 1) / (totalSlides - 1)) * 100;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+
+            // Update Dots
+            const dots = document.querySelectorAll('.dot-btn');
+            dots.forEach((dot, idx) => {
+                if (idx + 1 === n) {
+                    dot.className = 'dot-btn w-5 h-2 bg-sky-400 rounded-full transition-all';
+                } else {
+                    dot.className = 'dot-btn w-2 h-2 bg-slate-700 hover:bg-slate-500 rounded-full transition-all';
+                }
+            });
+        }
+
+        function changeSlide(step) {
+            showSlide(currentSlide + step);
+        }
+
+        function navigateTo(n) {
+            if (isScrollMode) {
+                const target = document.getElementById(`sec-${n}`);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                showSlide(n);
+            }
+            toggleDrawer(false);
+        }
+
+        // View Switcher (Slide vs Web Page Scroll)
+        function toggleViewMode() {
+            isScrollMode = !isScrollMode;
+            const body = document.body;
+            const btnText = document.getElementById('view-mode-text');
+
+            if (isScrollMode) {
+                body.classList.add('scroll-mode');
+                btnText.textContent = "સ્લાઇડ મોડ";
+            } else {
+                body.classList.remove('scroll-mode');
+                btnText.textContent = "વેબ પેજ મોડ";
+                showSlide(currentSlide);
+            }
+        }
+
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+                document.getElementById('fullscreen-icon').className = "fa-solid fa-compress";
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+                document.getElementById('fullscreen-icon').className = "fa-solid fa-expand";
+            }
+        }
+
+        // Drawer Menu Engine
+        function toggleDrawer(forceClose = null) {
+            const drawer = document.getElementById('drawer-menu');
+            const backdrop = document.getElementById('drawer-backdrop');
+
+            const isClosed = drawer.classList.contains('translate-x-full');
+            const open = (forceClose !== null) ? forceClose : isClosed;
+
+            if (open) {
+                drawer.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function buildTOC() {
+            const container = document.getElementById('toc-container');
+            container.innerHTML = '';
+            titles.forEach((t, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left p-2.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 text-xs text-slate-300 hover:text-sky-400 border border-slate-800 transition flex items-center justify-between font-medium';
+                btn.onclick = () => navigateTo(i + 1);
+                btn.innerHTML = `<span>${t}</span><i class="fa-solid fa-chevron-right text-[10px] opacity-40"></i>`;
+                container.appendChild(btn);
+            });
+        }
+
+        function buildDots() {
+            const container = document.getElementById('dot-indicators');
+            container.innerHTML = '';
+            for (let i = 1; i <= totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'dot-btn w-2 h-2 bg-slate-700 hover:bg-slate-500 rounded-full transition-all';
+                dot.onclick = () => navigateTo(i);
+                container.appendChild(dot);
+            }
+        }
+
+        // Keyboard Controls
+        document.addEventListener('keydown', (e) => {
+            if (isScrollMode) return;
+            if (e.key === 'ArrowRight' || e.key === 'Space') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        // Touch Gestures
+        function setupTouchGestures() {
+            let startX = 0;
+            let startY = 0;
+            const stage = document.querySelector('.slide-stage');
+
+            stage.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+
+            stage.addEventListener('touchend', (e) => {
+                if (isScrollMode) return;
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+
+                const diffX = startX - endX;
+                const diffY = startY - endY;
+
+                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                    if (diffX > 0) changeSlide(1);
+                    else changeSlide(-1);
+                }
+            }, { passive: true });
+        }
+
+        // Live Interactive Matrix Tool
+        function generateMatrixGrid() {
+            const rowInp = document.getElementById('input-rows');
+            const colInp = document.getElementById('input-cols');
+
+            let r = parseInt(rowInp.value) || 2;
+            let c = parseInt(colInp.value) || 2;
+
+            r = Math.max(1, Math.min(4, r));
+            c = Math.max(1, Math.min(4, c));
+            rowInp.value = r;
+            colInp.value = c;
+
+            document.getElementById('label-order').textContent = `${r} × ${c}`;
+            document.getElementById('label-count').textContent = r * c;
+
+            const container = document.getElementById('matrix-grid-container');
+            container.innerHTML = '';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'math-matrix-bracket flex flex-col gap-2 p-2';
+
+            for (let i = 0; i < r; i++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'flex gap-2 justify-center';
+                for (let j = 0; j < c; j++) {
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.dataset.row = i;
+                    input.dataset.col = j;
+                    input.className = 'matrix-cell w-10 h-10 text-center font-mono font-bold text-sm bg-slate-900 border border-slate-700 text-emerald-400 rounded-lg focus:border-sky-400 focus:outline-none shadow-sm';
+                    input.value = (i === j) ? 1 : 0;
+                    input.oninput = evaluateMatrixType;
+                    rowDiv.appendChild(input);
+                }
+                wrapper.appendChild(rowDiv);
+            }
+
+            container.appendChild(wrapper);
+            evaluateMatrixType();
+        }
+
+        function resetMatrixGrid() {
+            document.getElementById('input-rows').value = 2;
+            document.getElementById('input-cols').value = 2;
+            generateMatrixGrid();
+        }
+
+        function evaluateMatrixType() {
+            const cells = document.querySelectorAll('.matrix-cell');
+            if (cells.length === 0) return;
+
+            const r = parseInt(document.getElementById('input-rows').value);
+            const c = parseInt(document.getElementById('input-cols').value);
+
+            let grid = Array.from({ length: r }, () => Array(c).fill(0));
+            cells.forEach(inp => {
+                const i = parseInt(inp.dataset.row);
+                const j = parseInt(inp.dataset.col);
+                grid[i][j] = parseFloat(inp.value) || 0;
+            });
+
+            let typeStr = "સામાન્ય શ્રેણિક";
+            const isSquare = (r === c);
+            const isRow = (r === 1);
+            const isCol = (c === 1);
+
+            let isZero = true;
+            let isDiagonal = isSquare;
+            let isScalar = isSquare;
+            let isIdentity = isSquare;
+
+            const d0 = isSquare ? grid[0][0] : null;
+
+            for (let i = 0; i < r; i++) {
+                for (let j = 0; j < c; j++) {
+                    const val = grid[i][j];
+                    if (val !== 0) isZero = false;
+
+                    if (isSquare) {
+                        if (i !== j && val !== 0) {
+                            isDiagonal = false;
+                            isScalar = false;
+                            isIdentity = false;
+                        }
+                        if (i === j) {
+                            if (val !== d0) isScalar = false;
+                            if (val !== 1) isIdentity = false;
+                        }
+                    }
+                }
+            }
+
+            if (isZero) typeStr = "શૂન્ય શ્રેણિક (Zero Matrix)";
+            else if (isIdentity) typeStr = "એકમ શ્રેણિક (Identity Matrix)";
+            else if (isScalar) typeStr = "અદિશ શ્રેણિક (Scalar Matrix)";
+            else if (isDiagonal) typeStr = "વિકર્ણ શ્રેણિક (Diagonal Matrix)";
+            else if (isSquare) typeStr = "ચોરસ શ્રેણિક (Square Matrix)";
+            else if (isRow) typeStr = "હાર શ્રેણિક (Row Matrix)";
+            else if (isCol) typeStr = "સ્તંભ શ્રેણિક (Column Matrix)";
+
+            document.getElementById('matrix-type-badge').textContent = typeStr;
+        }
+
+        // 15 MCQ Quiz Engine
+        function initQuizNavGrid() {
+            const grid = document.getElementById('quiz-nav-grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < quizData.length; i++) {
+                const btn = document.createElement('button');
+                btn.id = `qnav-${i}`;
+                btn.className = 'w-7 h-7 rounded-lg font-mono text-xs font-bold border transition flex items-center justify-center bg-slate-900 border-slate-700 text-slate-400 hover:border-sky-400';
+                btn.textContent = i + 1;
+                btn.onclick = () => loadQuizQuestion(i);
+                grid.appendChild(btn);
+            }
+            updateQuizScoreUI();
+        }
+
+        function loadQuizQuestion(idx) {
+            currentQuizIdx = idx;
+            const box = document.getElementById('quiz-box');
+            const item = quizData[idx];
+            const userAns = quizUserAnswers[idx];
+
+            // Highlight Grid Nav
+            for (let i = 0; i < quizData.length; i++) {
+                const navBtn = document.getElementById(`qnav-${i}`);
+                if (!navBtn) continue;
+                if (i === idx) {
+                    navBtn.classList.add('ring-2', 'ring-sky-400', 'ring-offset-1', 'ring-offset-slate-950');
+                } else {
+                    navBtn.classList.remove('ring-2', 'ring-sky-400', 'ring-offset-1', 'ring-offset-slate-950');
+                }
+            }
+
+            const isAnswered = (userAns !== null);
+
+            box.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-sky-400 font-bold uppercase tracking-wider">પ્રશ્ન ${idx + 1} / ${quizData.length}</span>
+                        <div class="space-x-2">
+                            <button onclick="navigateQuizQuestion(-1)" ${idx === 0 ? 'disabled' : ''} class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 rounded text-slate-300">
+                                <i class="fa-solid fa-chevron-left"></i> પાછળ
+                            </button>
+                            <button onclick="navigateQuizQuestion(1)" ${idx === quizData.length - 1 ? 'disabled' : ''} class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 rounded text-slate-300">
+                                આગળ <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <h3 class="text-sm sm:text-base font-bold text-slate-100 leading-relaxed">${item.q}</h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        ${item.opts.map((o, i) => {
+                            let optionClass = "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300";
+                            if (isAnswered) {
+                                if (i === item.ans) {
+                                    optionClass = "bg-emerald-500/20 border-emerald-500 text-emerald-300 font-bold";
+                                } else if (i === userAns) {
+                                    optionClass = "bg-rose-500/20 border-rose-500 text-rose-300 font-bold";
+                                }
+                            }
+                            return `
+                                <button onclick="selectAnswer(${i})" ${isAnswered ? 'disabled' : ''} class="p-3 border rounded-xl text-left text-xs sm:text-sm transition font-medium ${optionClass}">
+                                    <span class="font-bold text-sky-400 mr-1.5">${String.fromCharCode(65 + i)}.</span> ${o}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <div id="quiz-msg" class="${isAnswered ? '' : 'hidden'} p-3.5 rounded-xl text-xs sm:text-sm font-medium ${userAns === item.ans ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300' : 'bg-rose-500/20 border border-rose-500/40 text-rose-300'}">
+                        ${isAnswered ? `
+                            <div class="font-bold mb-1">
+                                ${userAns === item.ans ? '<i class="fa-solid fa-circle-check mr-1.5 text-emerald-400"></i> સાચો જવાબ!' : '<i class="fa-solid fa-circle-xmark mr-1.5 text-rose-400"></i> ખોટો જવાબ.'}
+                            </div>
+                            <div class="text-slate-300 text-xs">${item.exp}</div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectAnswer(chosenIdx) {
+            if (quizUserAnswers[currentQuizIdx] !== null) return;
+            
+            quizUserAnswers[currentQuizIdx] = chosenIdx;
+            const item = quizData[currentQuizIdx];
+            
+            // Update Nav button style
+            const navBtn = document.getElementById(`qnav-${currentQuizIdx}`);
+            if (navBtn) {
+                if (chosenIdx === item.ans) {
+                    navBtn.className = 'w-7 h-7 rounded-lg font-mono text-xs font-bold border transition flex items-center justify-center bg-emerald-500/30 border-emerald-500 text-emerald-300';
+                } else {
+                    navBtn.className = 'w-7 h-7 rounded-lg font-mono text-xs font-bold border transition flex items-center justify-center bg-rose-500/30 border-rose-500 text-rose-300';
+                }
+            }
+
+            updateQuizScoreUI();
+            loadQuizQuestion(currentQuizIdx);
+        }
+
+        function navigateQuizQuestion(step) {
+            const nextIdx = currentQuizIdx + step;
+            if (nextIdx >= 0 && nextIdx < quizData.length) {
+                loadQuizQuestion(nextIdx);
+            }
+        }
+
+        function updateQuizScoreUI() {
+            let score = 0;
+            quizUserAnswers.forEach((ans, i) => {
+                if (ans === quizData[i].ans) score++;
+            });
+            document.getElementById('badge-score').textContent = `સ્કોર: ${score} / ${quizData.length}`;
+        }
+
+        function restartQuiz() {
+            quizUserAnswers = Array(15).fill(null);
+            initQuizNavGrid();
+            loadQuizQuestion(0);
+        }
+    </script>
+</body>
+</html>
