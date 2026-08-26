@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>સંપૂર્ણ વિસ્તૃત પાઠ આયોજન - ધોરણ ૧૧ ગણિત</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            color: #1a252f;
+        }
+        .container {
+            max-width: 1250px;
+            background: #ffffff;
+            padding: 35px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border: 1px solid #dcdfe6;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px double #2c3e50;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            color: #1a5276;
+            font-size: 2.2em;
+            text-transform: uppercase;
+        }
+        .header h2 {
+            margin: 6px 0;
+            color: #2980b9;
+            font-size: 1.5em;
+        }
+        .header h3 {
+            margin: 4px 0;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background-color: #f8f9fa;
+        }
+        .meta-table td {
+            border: 1px solid #bdc3c7;
+            padding: 10px 15px;
+            font-size: 1.05em;
+        }
+        .meta-table td strong {
+            color: #1a5276;
+        }
+        .section-box {
+            margin-bottom: 25px;
+            background: #ffffff;
+            border: 1px solid #dcdfe6;
+            border-left: 6px solid #2980b9;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        .section-box h4 {
+            margin-top: 0;
+            color: #2980b9;
+            font-size: 1.25em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        ul, ol {
+            line-height: 1.8;
+            font-size: 1.05em;
+            margin-top: 5px;
+        }
+        table.plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table.plan-table th, table.plan-table td {
+            border: 1px solid #b2bec3;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+            font-size: 1em;
+        }
+        table.plan-table th {
+            background-color: #1a5276;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        table.plan-table tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+        .question-display {
+            background-color: #2c3e50;
+            color: #f1c40f;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: bold;
+            line-height: 1.6;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+        }
+        .interactive-space {
+            background-color: #ffffff;
+            border: 2px dashed #95a5a6;
+            min-height: 220px;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+            position: relative;
+        }
+        .interactive-space::after {
+            content: "[ સ્માર્ટબોર્ડ ડિજિટલ પેન વડે અહીં લાઈવ ગણતરી કરો ]";
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.85em;
+            color: #bdc3c7;
+        }
+        .footer-signatures {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- શિર્ષક વિભાગ (PDF મુજબ) -->
+    <div class="header">
+        <h1>સંપૂર્ણ પાઠ આયોજન (Detailed Lesson Plan)</h1>
+        <h2>સર્દાર પટેલ યુનિવર્સિટી, વલ્લભ વિદ્યાનગર</h2>
+        <h3>શ્રીમતી બી.સી.જે. કોલેજ ઓફ એજ્યુકેશન, ખંભાત (NAAC Re-Accredited B)</h3>
+    </div>
+
+    <!-- તાલીમાર્થી અને વિષય સંબંધી ટેબલ -->
+    <table class="meta-table">
+        <tr>
+            <td><strong>તાલીમાર્થીનું નામ:</strong> ગોસાઈ દેવશી આનલગીરી</td>
+            <td><strong>શાળાનું નામ:</strong> શ્રી બી.વી. પટેલ હાઈસ્કૂલ વટાદરા</td>
+        </tr>
+        <tr>
+            <td><strong>રોલ નંબર:</strong> 35</td>
+            <td><strong>તારીખ:</strong> 02-01-2025</td>
+        </tr>
+        <tr>
+            <td><strong>ધોરણ / વર્ગ:</strong> 11 (Science)</td>
+            <td><strong>સમયગાળો:</strong> 30 મિનિટ (મહત્તમ)</td>
+        </tr>
+        <tr>
+            <td><strong>વિષય:</strong> ગણિત</td>
+            <td><strong>પાઠ ક્રમાંક:</strong> 02</td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>એકમ (વિષયાંગ):</strong> પ્રકરણ 3 - ત્રિકોણમિતિય વિધેયો (પ્રકીર્ણ સ્વાધ્યાય 3)</td>
+        </tr>
+    </table>
+
+    <!-- સામાન્ય અને વિશિષ્ટ હેતુઓ -->
+    <div class="section-box">
+        <h4>૧. સામાન્ય અને વિશિષ્ટ હેતુઓ (Objectives)</h4>
+        <ul>
+            <li><strong>જ્ઞાનાત્મક હેતુ (Knowledge):</strong>
+                <ul>
+                    <li>વિદ્યાર્થીઓ ધોરણ-૧૧ ના પ્રકરણ ૩ ના જટિલ ત્રિકોણમિતિય નિત્યસમોનું પુનરાવર્તન કરશે.</li>
+                    <li>વિદ્યાર્થીઓ $C+C, C-C, S+S, S-S$ ના વિસ્તરણ અને અવયવીકરણના સૂત્રો યાદ કરશે.</li>
+                </ul>
+            </li>
+            <li><strong>અવબોધાત્મક હેતુ (Understanding):</strong>
+                <ul>
+                    <li>વિદ્યાર્થીઓ પ્રકીર્ણ સ્વાધ્યાય ૩ ના સાબિતીના દાખલાઓમાં યોગ્ય સૂત્રની પસંદગી કરવાની સમજ કેળવશે.</li>
+                    <li>ગુણાકારમાંથી સરવાળા-બાદબાકી અને સરવાળા-બાદબાકીમાંથી ગુણાકાર સ્વરૂપમાં રૂપાંતરિત કરવાની રીત સમજી શકશે.</li>
+                </ul>
+            </li>
+            <li><strong>ઉપયોજનાત્મક હેતુ (Application):</strong>
+                <ul>
+                    <li>વિદ્યાર્થીઓ સ્માર્ટબોર્ડ પર પ્રદર્શિત પ્રશ્નો જોઈને શિક્ષકની સાથે સોપાનબદ્ધ ગણતરીમાં સક્રિય ભાગ લેશે.</li>
+                    <li>મેળવેલ ત્રિકોણમિતિય જ્ઞાનનો ઉપયોગ નવા કોયડાઓ ઉકેલવામાં કરશે.</li>
+                </ul>
+            </li>
+            <li><strong>કૌશલ્યાત્મક હેતુ (Skills):</strong>
+                <ul>
+                    <li>વિદ્યાર્થીઓમાં ચોકસાઈપૂર્વક સાબિતી મેળવવાનું તાર્કિક ગણિતીય કૌશલ્ય વિકસશે.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- શૈક્ષણિક સાધનો અને પદ્ધતિઓ -->
+    <div class="section-box">
+        <h4>૨. શૈક્ષણિક સાધનો અને અધ્યાપન પદ્ધતિઓ</h4>
+        <p><strong>સામાન્ય શૈક્ષણિક સાધનો:</strong> ચોક, ડસ્ટર, પોઇન્ટર, સ્માર્ટબોર્ડ (Smartboard HTML Display).</p>
+        <p><strong>વિશિષ્ટ શૈક્ષણિક સાધનો:</strong> ઇન્ટરેક્ટિવ સ્માર્ટબોર્ડ સોફ્ટવેર, ડિજિટલ સ્ટાઈલસ પેન, ત્રિકોણમિતિ સૂત્રોનો ડિજિટલ ચાર્ટ.</p>
+        <p><strong>અધ્યાપન પદ્ધતિઓ:</strong> સ્વ-ગણતરી પદ્ધતિ (Self-Calculation Method), નિદર્શન પદ્ધતિ, કથન-ચર્ચા પદ્ધતિ, પ્રશ્નોત્તરી પદ્ધતિ, નિગમન પદ્ધતિ.</p>
+    </div>
+
+    <!-- સંદર્ભ સાહિત્ય -->
+    <div class="section-box">
+        <h4>૩. સંદર્ભ સાહિત્ય (Reference Material)</h4>
+        <p>ગુજરાત રાજ્ય શાળા પાઠ્યપુસ્તક મંડળ, ગાંધીનગર દ્વારા પ્રકાશિત ધોરણ-૧૧ ગણિત પાઠ્યપુસ્તક (પ્રકરણ ૩ - ત્રિકોણમિતિય વિધેયો, પ્રકીર્ણ સ્વાધ્યાય ૩, પાના નં. 78-80).</p>
+    </div>
+
+    <!-- વિસ્તૃત તબક્કાવાર પાઠ આયોજન -->
+    <h4>૪. પાઠનું વિસ્તૃત તબક્કાવાર આયોજન (30 મિનિટ)</h4>
+    <table class="plan-table">
+        <thead>
+            <tr>
+                <th style="width: 10%;">સોપાનો & સમય</th>
+                <th style="width: 13%;">વિશિષ્ટ હેતુઓ</th>
+                <th style="width: 12%;">શૈક્ષણિક મુદ્દા</th>
+                <th style="width: 25%;">અધ્યાપન-અધ્યયન પ્રવૃત્તિઓ (શિક્ષક અને વિદ્યાર્થી સક્રિયતા)</th>
+                <th style="width: 10%;">પદ્ધતિ / સાધન</th>
+                <th style="width: 30%;">સ્માર્ટબોર્ડ લાઈવ ડિસ્પ્લે અને લાઈવ ગણતરી બોક્સ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- વિષયાભિમુખ -->
+            <tr>
+                <td><strong>વિષયાભિમુખ</strong><br>(3 મિનિટ)</td>
+                <td>પૂર્વજ્ઞાન ચકાસવું અને વિષય પ્રત્યે આકર્ષિત કરવા.</td>
+                <td>સૂત્રોનું પુનરાવર્તન</td>
+                <td>
+                    <strong>શિક્ષક પ્રવૃત્તિ:</strong> વર્ગમાં પ્રવેશ કરી સ્માર્ટબોર્ડ પર ત્રિકોણમિતિય નિત્યસમો બતાવી પ્રશ્નો પૂછશે.<br>
+                    <strong>વિદ્યાર્થી પ્રવૃત્તિ:</strong> વિદ્યાર્થીઓ પૂર્વજ્ઞાનના આધારે ઉત્તર આપશે.<br><br>
+                    <em>પ્રશ્નો:</em><br>
+                    ૧. $\cos A + \cos B$ નું સૂત્ર શું થાય?<br>
+                    ૨. $\sin 2x$ નું વિસ્તરણ જણાવો.
+                </td>
+                <td>પ્રશ્નોત્તરી પદ્ધતિ / સ્માર્ટબોર્ડ</td>
+                <td>
+                    <div class="question-display">
+                        📌 પુનરાવર્તન નિત્યસમો:<br>
+                        • $\cos A + \cos B = 2 \cos\left(\frac{A+B}{2}\right) \cos\left(\frac{A-B}{2}\right)$<br>
+                        • $\sin 2x = 2 \sin x \cos x$
+                    </div>
+                </td>
+            </tr>
+
+            <!-- વિષયપ્રવેશ -->
+            <tr>
+                <td><strong>વિષયપ્રવેશ</strong><br>(2 મિનિટ)</td>
+                <td>વિષયાંગ સ્પષ્ટ કરવું.</td>
+                <td>હેતુકથન</td>
+                <td>
+                    <strong>શિક્ષક પ્રવૃત્તિ:</strong> હેતુકથન કરશે: "વિદ્યાર્થી મિત્રો, આજે આપણે સ્માર્ટબોર્ડ પર પ્રશ્નો જોઈને પ્રકીર્ણ સ્વાધ્યાય ૩ ના દાખલાઓ જાતે ગણીને સાબિતી મેળવીશું."<br>
+                    <strong>વિદ્યાર્થી પ્રવૃત્તિ:</strong> વિદ્યાર્થીઓ પોતાની નોંધપોથીમાં વિષયાંગ લખશે.
+                </td>
+                <td>કથન પદ્ધતિ</td>
+                <td>
+                    <div class="question-display" style="text-align: center;">
+                        એકમ: ત્રિકોણમિતિય વિધેયો<br>
+                        <small>(પ્રકીર્ણ સ્વાધ્યાય ૩ - લાઈવ સ્વ-ગણતરી)</small>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- વિષયનિરૂપણ - પ્રશ્ન ૧ -->
+            <tr>
+                <td><strong>વિષયનિરૂપણ (પ્રશ્ન ૧)</strong><br>(9 મિનિટ)</td>
+                <td>સાબિતીના ચરણો સમજીને સ્વ-ગણતરી કરવી.</td>
+                <td>પ્રકીર્ણ સ્વાધ્યાય ૩ - દાખલો ૧</td>
+                <td>
+                    <strong>શિક્ષક પ્રવૃત્તિ:</strong> સ્માર્ટબોર્ડ પર ફક્ત પ્રશ્ન ૧ ડિસ્પ્લે કરશે. શિક્ષક ડિજિટલ પેન વડે બોર્ડ પર દરેક સ્ટેપ જાતે લખશે અને વિદ્યાર્થીઓને સાથે ગણતરી કરવા કહેશે.<br>
+                    <strong>વિદ્યાર્થી પ્રવૃત્તિ:</strong> વિદ્યાર્થીઓ સ્માર્ટબોર્ડ પર થતી ગણતરી જોશે અને પોતાની બુકમાં ઉકેલ લખશે.
+                </td>
+                <td>સ્વ-ગણતરી પદ્ધતિ / ડિજિટલ પેન</td>
+                <td>
+                    <div class="question-display">
+                        પ્રશ્ન ૧: સાબિત કરો કે,<br>
+                        $2 \cos\left(\frac{\pi}{13}\right) \cos\left(\frac{9\pi}{13}\right) + \cos\left(\frac{3\pi}{13}\right) + \cos\left(\frac{5\pi}{13}\right) = 0$
+                    </div>
+                    <div class="interactive-space"></div>
+                </td>
+            </tr>
+
+            <!-- વિષયનિરૂપણ - પ્રશ્ન ૨ -->
+            <tr>
+                <td><strong>વિષયનિરૂપણ (પ્રશ્ન ૨)</strong><br>(8 મિનિટ)</td>
+                <td>કૌંસ વિસ્તરણ અને અવયવીકરણ સમજવું.</td>
+                <td>પ્રકીર્ણ સ્વાધ્યાય ૩ - દાખલો ૨</td>
+                <td>
+                    <strong>શિક્ષક પ્રવૃત્તિ:</strong> પ્રશ્ન ૨ દર્શાવશે. પ્રથમ સ્ટેપમાં કૌંસ છોડવાનું સૂચન કરી બોર્ડ પર સ્ટેપ્સ ગણશે.<br>
+                    <strong>વિદ્યાર્થી પ્રવૃત્તિ:</strong> વિદ્યાર્થીઓ સૂત્ર આપશે અને શિક્ષક સાથે જવાબ ચકાસશે.
+                </td>
+                <td>નિદર્શન / લાઈવ સાબિતી</td>
+                <td>
+                    <div class="question-display">
+                        પ્રશ્ન ૨: સાબિત કરો કે,<br>
+                        $(\sin 3x + \sin x)\sin x + (\cos 3x - \cos x)\cos x = 0$
+                    </div>
+                    <div class="interactive-space"></div>
+                </td>
+            </tr>
+
+            <!-- મહાવરો - પ્રશ્ન ૩ -->
+            <tr>
+                <td><strong>મહાવરો (પ્રશ્ન ૩)</strong><br>(5 મિનિટ)</td>
+                <td>જટિલ વર્ગવાળા પદોનો ઉકેલ શોધવો.</td>
+                <td>પ્રકીર્ણ સ્વાધ્યાય ૩ - દાખલો ૩</td>
+                <td>
+                    <strong>શિક્ષક પ્રવૃત્તિ:</strong> પ્રશ્ન ૩ બોર્ડ પર મૂકીને $(A+B)^2$ ના વિસ્તરણ આધારિત લાઈવ ગણતરી કરશે.<br>
+                    <strong>વિદ્યાર્થી પ્રવૃત્તિ:</strong> વિદ્યાર્થીઓ સ્માર્ટબોર્ડ જોઈને પદોનું સાદુરૂપ આપશે.
+                </td>
+                <td>સ્વ-ગણતરી પદ્ધતિ</td>
+                <td>
+                    <div class="question-display">
+                        પ્રશ્ન ૩: સાબિત કરો કે,<br>
+                        $(\cos x + \cos y)^2 + (\sin x - \sin y)^2 = 4 \cos^2\left(\frac{x+y}{2}\right)$
+                    </div>
+                    <div class="interactive-space"></div>
+                </td>
+            </tr>
+
+            <!-- દ્રઢીકરણ -->
+            <tr>
+                <td><strong>દ્રઢીકરણ</strong><br>(3 મિનિટ)</td>
+                <td>મેળવેલ જ્ઞાન પાકો કરવો.</td>
+                <td>પુનરાવર્તિત પ્રશ્નો</td>
+                <td>
+                    <strong>શિક્ષક પ્રવૃત્તિ:</strong> ગણેલા દાખલાઓમાંથી મુખ્ય તાર્કિક પ્રશ્નો પૂછશે.<br>
+                    <strong>વિદ્યાર્થી પ્રવૃત્તિ:</strong> વિદ્યાર્થીઓ ટૂંકા જવાબો આપી શંકા નિવારણ કરશે.
+                </td>
+                <td>પ્રશ્નોત્તરી</td>
+                <td>
+                    <div class="question-display">
+                        🔍 ચકાસણી પ્રશ્નો:<br>
+                        • દાખલા ૩ માં $(x+y)/2$ વાળું પદ કઈ રીતે સામાન્ય નીકળ્યું?<br>
+                        • $C-C$ માં માનસ (-) નિશાની ક્યારે આગળ આવે?
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- સ્વાધ્યાય (ગૃહકાર્ય) -->
+    <div class="section-box" style="margin-top: 25px;">
+        <h4>૫. સ્વાધ્યાય (Home Work)</h4>
+        <ol>
+            <li>પ્રકીર્ણ સ્વાધ્યાય ૩ નો પ્રશ્ન ૪ અને પ્રશ્ન ૫ ગણિતની નોટબુકમાં સ્વ-ગણતરી કરીને સાબિત કરવા.</li>
+            <li>સાબિત કરો કે: $\sin x + \sin 3x + \sin 5x + \sin 7x = 4 \cos x \cos 2x \sin 4x$.</li>
+        </ol>
+    </div>
+
+    <!-- પાઠની વિશિષ્ટતા અને સહી વિભાગ -->
+    <div class="section-box">
+        <h4>૬. પાઠની વિશિષ્ટ નોંધ (Special Remarks)</h4>
+        <ul>
+            <li>આ પાઠ આયોજનમાં સ્માર્ટબોર્ડનો ઉપયોગ માત્ર પ્રશ્નોના ડિસ્પ્લે માટે થયો છે અને તમામ ગણતરી લાઈવ (Digital Pen) વડે કરવામાં આવી છે.</li>
+            <li>૩૦ મિનિટના સમયગાળાનું ચોકસાઈપૂર્વક પાલન કરવામાં આવ્યું છે.</li>
+        </ul>
+    </div>
+
+    <div class="footer-signatures">
+        <div>તાલીમાર્થીની સહી: ___________________</div>
+        <div>વિષય શિક્ષકની સહી: ___________________</div>
+        <div>માર્ગદર્શકની સહી: ___________________</div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSEB Std 11 Math: Trigonometry (સ્વાધ્યાય 3) - Master Classroom Deck</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- KaTeX for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#F0F9FF',
+                            500: '#0284C7',
+                            600: '#0369A1',
+                            700: '#075985',
+                            accent: '#3B82F6',
+                            emerald: '#10B981',
+                            rose: '#F43F5E',
+                            amber: '#F59E0B',
+                            purple: '#A855F7',
+                            cyan: '#06B6D4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0F19;
+            background-image: radial-gradient(#1E293B 1px, transparent 1px);
+            background-size: 24px 24px;
+            font-family: 'Inter', sans-serif;
+            color: #F8FAFC;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.light {
+            background-color: #F8FAFC;
+            background-image: radial-gradient(#CBD5E1 0.75px, transparent 0.75px);
+            color: #0F172A;
+        }
+
+        /* Presentation Cards */
+        .theme-card {
+            background: #111827;
+            border: 1px solid #1F2937;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        body.light .theme-card {
+            background: #FFFFFF;
+            border-color: #E2E8F0;
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+        }
+
+        .theme-card-hover:hover {
+            border-color: #3B82F6;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -5px rgba(59, 130, 246, 0.25);
+        }
+
+        /* Slide viewport layout */
+        .slide-frame {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 130px);
+            max-width: 1536px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.97) translateY(12px);
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 1.5rem;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Smartboard Canvas & Laser Pointer Overlays */
+        #drawingCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 40;
+            pointer-events: none;
+        }
+        #drawingCanvas.active-pen {
+            pointer-events: auto;
+            cursor: crosshair;
+        }
+
+        /* Laser Pointer Dot */
+        #laserPointer {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #F43F5E;
+            box-shadow: 0 0 12px #F43F5E, 0 0 24px #F43F5E;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.1s, height 0.1s;
+        }
+        #laserPointer.active {
+            display: block;
+        }
+
+        /* Formula Blocks */
+        .math-block {
+            font-family: 'Fira Code', monospace;
+            background: #1E293B;
+            border-left: 4px solid #3B82F6;
+            padding: 0.75rem 1rem;
+            border-radius: 0.6rem;
+            color: #38BDF8;
+            font-weight: 600;
+        }
+        body.light .math-block {
+            background: #F1F5F9;
+            color: #1E293B;
+            border-left-color: #2563EB;
+        }
+
+        .math-block.highlight {
+            border-left-color: #10B981;
+            background: #064E3B;
+            color: #6EE7B7;
+        }
+        body.light .math-block.highlight {
+            background: #ECFDF5;
+            color: #065F46;
+            border-left-color: #059669;
+        }
+
+        .math-block.warning {
+            border-left-color: #F59E0B;
+            background: #451A03;
+            color: #FCD34D;
+        }
+        body.light .math-block.warning {
+            background: #FFFBEB;
+            color: #92400E;
+            border-left-color: #D97706;
+        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1E293B;
+        }
+        body.light ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748B;
+        }
+
+        /* Step marking panel transition */
+        .marking-panel {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .marking-panel.open {
+            max-height: 380px;
+            opacity: 1;
+            margin-top: 0.75rem;
+        }
+
+        .modal-backdrop {
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden dark">
+
+    <canvas id="ambientBg" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+    <div id="laserPointer"></div>
+
+    <!-- Formula Reference Modal -->
+    <div id="formulaModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+        <div class="theme-card max-w-3xl w-full p-6 space-y-4 border-2 border-blue-600 shadow-2xl overflow-y-auto max-h-[85vh]">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-lg font-bold font-heading text-cyan-400 flex items-center gap-2">
+                    <i class="fa-solid fa-book-bookmark text-cyan-400"></i> Trigonometry Formula Bank (ત્રિકોણમિતિ સૂત્રો)
+                </h3>
+                <button onclick="toggleFormulaModal()" class="text-slate-400 hover:text-rose-400 text-lg transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                <div class="space-y-2">
+                    <h4 class="font-bold text-amber-400">Sum-to-Product (C-D Formulas)</h4>
+                    <div class="math-block">$$\sin C + \sin D = 2 \sin\frac{C+D}{2} \cos\frac{C-D}{2}$$</div>
+                    <div class="math-block">$$\sin C - \sin D = 2 \cos\frac{C+D}{2} \sin\frac{C-D}{2}$$</div>
+                    <div class="math-block">$$\cos C + \cos D = 2 \cos\frac{C+D}{2} \cos\frac{C-D}{2}$$</div>
+                    <div class="math-block warning">$$\cos C - \cos D = -2 \sin\frac{C+D}{2} \sin\frac{C-D}{2}$$</div>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-emerald-400">Product-to-Sum Formulas</h4>
+                    <div class="math-block">$$2 \sin A \cos B = \sin(A+B) + \sin(A-B)$$</div>
+                    <div class="math-block">$$2 \cos A \sin B = \sin(A+B) - \sin(A-B)$$</div>
+                    <div class="math-block">$$2 \cos A \cos B = \cos(A+B) + \cos(A-B)$$</div>
+                    <div class="math-block highlight">$$2 \sin A \sin B = \cos(A-B) - \cos(A+B)$$</div>
+                </div>
+
+                <div class="space-y-2 md:col-span-2">
+                    <h4 class="font-bold text-purple-400">Half-Angle &amp; Double-Angle Identities</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <div class="math-block">$$\sin^2\frac{x}{2} = \frac{1 - \cos x}{2}$$</div>
+                        <div class="math-block">$$\cos^2\frac{x}{2} = \frac{1 + \cos x}{2}$$</div>
+                        <div class="math-block">$$\tan\frac{x}{2} = \frac{\sin(x/2)}{\cos(x/2)}$$</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="relative z-50 h-16 border-b border-slate-800 bg-slate-900/95 backdrop-blur-md px-4 md:px-6 flex items-center justify-between shadow-lg">
+        <!-- Tutor Persona & Lesson Header -->
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                <i class="fa-solid fa-chalkboard-user text-lg"></i>
+            </div>
+            <div>
+                <h1 class="text-sm md:text-base font-extrabold text-slate-100 flex items-center gap-2 font-heading">
+                    GSEB Std 11 Math: Trigonometry 
+                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-950 border border-blue-700 text-blue-300 font-mono font-bold">સ્વાધ્યાય 3</span>
+                </h1>
+                <p class="text-xs text-slate-400 flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <strong>Interactive Classroom Teaching Deck</strong> • GSEB Board Solutions
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide Dropdown -->
+        <div class="hidden lg:flex items-center gap-2 bg-slate-800/90 border border-slate-700 rounded-lg px-3 py-1.5">
+            <i class="fa-solid fa-list-ol text-blue-400 text-xs"></i>
+            <select id="slideSelect" class="bg-transparent text-xs text-slate-200 focus:outline-none cursor-pointer font-semibold pr-2">
+                <option value="0" class="bg-slate-900 text-slate-100">0. Welcome & Board Overview (પ્રસ્તાવના)</option>
+                <option value="1" class="bg-slate-900 text-slate-100">1. Unit Circle & Wave Projection (ચરણ & આલેખ)</option>
+                <option value="2" class="bg-slate-900 text-slate-100">2. High-Yield Identity Bank (નિત્યસમ બેંક)</option>
+                <option value="3" class="bg-slate-900 text-slate-100">3. Q1: 2 cos(π/13) cos(9π/13) + cos(3π/13) + cos(5π/13) = 0</option>
+                <option value="4" class="bg-slate-900 text-slate-100">4. Q2: (sin 3x + sin x)sin x + (cos 3x - cos x)cos x = 0</option>
+                <option value="5" class="bg-slate-900 text-slate-100">5. Q3: Sum of Squares Identity</option>
+                <option value="6" class="bg-slate-900 text-slate-100">6. Q4: Difference of Squares Identity</option>
+                <option value="7" class="bg-slate-900 text-slate-100">7. Q5: 4-Term Series Proof (sin x + sin 3x + sin 5x + sin 7x)</option>
+                <option value="8" class="bg-slate-900 text-slate-100">8. Q6: Fraction Identity (tan 6x)</option>
+                <option value="9" class="bg-slate-900 text-slate-100">9. Q7: Triple Angle Identity (sin 3x + sin 2x - sin x)</option>
+                <option value="10" class="bg-slate-900 text-slate-100">10. Q8: Half-Angle Evaluation (tan x = -4/3, Quad II)</option>
+                <option value="11" class="bg-slate-900 text-slate-100">11. Q9: Half-Angle Evaluation (cos x = -1/3, Quad III)</option>
+                <option value="12" class="bg-slate-900 text-slate-100">12. Q10: Half-Angle Evaluation (sin x = 1/4, Quad II)</option>
+                <option value="13" class="bg-slate-900 text-slate-100">13. Interactive Diagnostic Quiz</option>
+                <option value="14" class="bg-slate-900 text-slate-100">14. Board Exam Summary & Homework</option>
+            </select>
+        </div>
+
+        <!-- Presenter Toolbar -->
+        <div class="flex items-center gap-2">
+            <!-- Formula Reference Modal Button -->
+            <button onclick="toggleFormulaModal()" title="Formula Reference Bank" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border border-cyan-800/80 bg-cyan-950/70 text-cyan-300 hover:bg-cyan-900 transition-all shadow-xs">
+                <i class="fa-solid fa-book-bookmark text-cyan-400"></i>
+                <span class="hidden sm:inline">Formulas</span>
+            </button>
+
+            <!-- Laser Pointer Button -->
+            <button id="laserBtn" onclick="toggleLaserPointer()" title="Laser Pointer for Live Teaching (Key: L)" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border border-rose-800/80 bg-rose-950/70 text-rose-300 hover:bg-rose-900 transition-all shadow-xs">
+                <i class="fa-solid fa-crosshairs text-rose-400"></i>
+                <span class="hidden sm:inline">Laser</span>
+            </button>
+
+            <!-- Classroom Timer Button -->
+            <button onclick="toggleClassTimer()" title="Student Practice Timer" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border border-purple-800/80 bg-purple-950/70 text-purple-300 hover:bg-purple-900 transition-all shadow-xs">
+                <i class="fa-solid fa-stopwatch text-purple-400"></i>
+                <span id="timerDisplay" class="hidden sm:inline">Timer</span>
+            </button>
+
+            <!-- Theme Toggle Button -->
+            <button id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Light / Dark Mode" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-700 bg-slate-800 text-amber-300 hover:bg-slate-700 transition-all shadow-xs">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+                <span id="themeLabel" class="hidden sm:inline">Dark</span>
+            </button>
+
+            <!-- Step Marking Toggle -->
+            <button onclick="toggleAllMarkingSchemes()" title="Toggle GSEB Marking Schemes" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border border-amber-800/60 bg-amber-950/60 text-amber-300 hover:bg-amber-900/60 transition-all shadow-xs">
+                <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                <span class="hidden sm:inline">GSEB Marks</span>
+            </button>
+
+            <!-- Smartboard Pen Toggle -->
+            <button id="togglePenBtn" onclick="togglePenTool()" title="Toggle Smartboard Pen (Key: P)" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 transition-all">
+                <i class="fa-solid fa-pen-nib text-cyan-400"></i>
+                <span class="hidden sm:inline">Pen</span>
+            </button>
+
+            <!-- Pen Color Palette Toolbar -->
+            <div id="penToolbar" class="hidden flex items-center gap-1.5 bg-slate-900 border border-slate-700 rounded-lg p-1 shadow-md">
+                <button onclick="setPenColor('#38BDF8')" class="w-5 h-5 rounded-full bg-sky-400 border border-white hover:scale-110 transition-transform"></button>
+                <button onclick="setPenColor('#F43F5E')" class="w-5 h-5 rounded-full bg-rose-500 border border-white hover:scale-110 transition-transform"></button>
+                <button onclick="setPenColor('#34D399')" class="w-5 h-5 rounded-full bg-emerald-400 border border-white hover:scale-110 transition-transform"></button>
+                <button onclick="setPenColor('#F59E0B')" class="w-5 h-5 rounded-full bg-amber-400 border border-white hover:scale-110 transition-transform"></button>
+                <button onclick="clearCanvas()" title="Clear Pen Ink" class="px-2 text-xs text-slate-400 hover:text-rose-400"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
+
+            <!-- Fullscreen -->
+            <button onclick="toggleFullscreen()" class="p-2 text-slate-400 hover:text-slate-100 rounded-lg hover:bg-slate-800 transition-colors" title="Toggle Fullscreen Presentation">
+                <i class="fa-solid fa-expand text-sm"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="relative flex-1 z-10 overflow-hidden">
+        <!-- Interactive Smartboard Pen Canvas Overlay -->
+        <canvas id="drawingCanvas"></canvas>
+
+        <div class="slide-frame">
+
+            <!-- SLIDE 0: INTRO -->
+            <section class="slide active" id="slide-0">
+                <div class="flex-1 flex flex-col items-center justify-center text-center max-w-4xl mx-auto space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-950/90 border border-blue-700 text-blue-300 text-xs font-mono font-bold shadow-md">
+                        <i class="fa-solid fa-graduation-cap text-cyan-400"></i> GSEB Std 11 Math • Chapter 3 (ત્રિકોણમિતિ વિધેયો) • स्वाध्याय 3
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-6xl font-extrabold font-heading tracking-tight text-white leading-tight">
+                        Trigonometric Functions
+                        <span class="block text-2xl md:text-4xl font-bold text-cyan-400 mt-2 font-display">GSEB Std 11 Masterclass Deck (સ્વાધ્યાય 3)</span>
+                    </h1>
+                    
+                    <p class="text-base md:text-lg text-slate-300 max-w-2xl font-normal leading-relaxed">
+                        Complete classroom teaching module with interactive unit circle projections, hidable GSEB step-wise marking schemes, formula banks, and complete solutions for all 10 questions.
+                    </p>
+
+                    <!-- Feature Highlights Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl mt-4">
+                        <div class="theme-card theme-card-hover p-4 text-left border-l-4 border-l-blue-500">
+                            <div class="text-xs text-slate-400 font-mono uppercase font-bold">Classroom Mode</div>
+                            <div class="text-sm font-extrabold text-slate-100 mt-1">GSEB Std 11 Math</div>
+                        </div>
+                        <div class="theme-card theme-card-hover p-4 text-left border-l-4 border-l-emerald-500">
+                            <div class="text-xs text-slate-400 font-mono uppercase font-bold">Exercise</div>
+                            <div class="text-sm font-extrabold text-slate-100 mt-1">સ્વાધ્યાય 3 (Questions 1-10)</div>
+                        </div>
+                        <div class="theme-card theme-card-hover p-4 text-left border-l-4 border-l-amber-500">
+                            <div class="text-xs text-slate-400 font-mono uppercase font-bold">Marking Scheme</div>
+                            <div class="text-sm font-extrabold text-slate-100 mt-1"><i class="fa-solid fa-clipboard-check text-amber-400"></i> Board Step Marks</div>
+                        </div>
+                        <div class="theme-card theme-card-hover p-4 text-left border-l-4 border-l-purple-500">
+                            <div class="text-xs text-slate-400 font-mono uppercase font-bold">Teaching Tools</div>
+                            <div class="text-sm font-extrabold text-slate-100 mt-1">Laser, Pen &amp; Canvas</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 mt-6">
+                        <button onclick="nextSlide()" class="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 text-sm">
+                            Start Masterclass <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 1: UNIT CIRCLE & WAVE -->
+            <section class="slide" id="slide-1">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-xl md:text-2xl font-bold font-heading text-white flex items-center gap-2">
+                        <i class="fa-solid fa-compass text-cyan-400"></i>
+                        Unit Circle &amp; Trigonometric Wave Projections (ચરણ &amp; આલેખ)
+                    </h2>
+                    <span class="text-xs font-mono bg-blue-950 border border-blue-700 text-blue-300 px-3 py-1 rounded-full font-bold">
+                        Interactive Visualizer
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 items-stretch">
+                    <!-- Left: ASTC Rules Card -->
+                    <div class="lg:col-span-4 flex flex-col gap-4">
+                        <div class="theme-card p-5 border-l-4 border-l-cyan-500 flex-1 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xs font-bold text-cyan-400 font-mono uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-layer-group"></i> ASTC Rule (ચરણ ના ચિહ્નો)
+                                </h3>
+                                <span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-700 text-[10px] font-bold font-mono">High-Yield</span>
+                            </div>
+
+                            <p class="text-xs text-slate-300">
+                                <strong>"All Silver Tea Cups"</strong> (બધા સાઈન ટેન કોસ). Remember: when finding half-angle $x/2$, always halve the quadrant boundaries!
+                            </p>
+
+                            <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                                <div class="bg-amber-950/60 p-2.5 rounded-xl border border-amber-800/80">
+                                    <span class="text-amber-300 font-bold block">પ્રથમ ચરણ ($0 \to \frac{\pi}{2}$)</span>
+                                    <span class="text-slate-200 font-bold">ALL (+) Positive</span>
+                                </div>
+                                <div class="bg-blue-950/60 p-2.5 rounded-xl border border-blue-800/80">
+                                    <span class="text-blue-300 font-bold block">દ્વિતીય ચરણ ($\frac{\pi}{2} \to \pi$)</span>
+                                    <span class="text-slate-200 font-bold">SINE &amp; $\csc$ (+)</span>
+                                </div>
+                                <div class="bg-emerald-950/60 p-2.5 rounded-xl border border-emerald-800/80">
+                                    <span class="text-emerald-300 font-bold block">તૃતીય ચરણ ($\pi \to \frac{3\pi}{2}$)</span>
+                                    <span class="text-slate-200 font-bold">TAN &amp; $\cot$ (+)</span>
+                                </div>
+                                <div class="bg-rose-950/60 p-2.5 rounded-xl border border-rose-800/80">
+                                    <span class="text-rose-300 font-bold block">ચતુર્થ ચરણ ($\frac{3\pi}{2} \to 2\pi$)</span>
+                                    <span class="text-slate-200 font-bold">COS &amp; $\sec$ (+)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-2 border-t border-slate-800">
+                                <h4 class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Board Exam Tip (શિક્ષકની ટિપ):
+                                </h4>
+                                <div class="math-block warning text-xs mt-1">
+                                    If $\pi < x < \frac{3\pi}{2}$ (3rd Quad) $\implies \frac{\pi}{2} < \frac{x}{2} < \frac{3\pi}{4}$ (2nd Quad)!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Interactive Unit Circle + Wave Canvas -->
+                    <div class="lg:col-span-8 theme-card p-5 flex flex-col items-center justify-between relative overflow-hidden">
+                        <div class="w-full flex justify-between items-center mb-2 px-2">
+                            <span class="text-xs font-bold text-slate-300 font-mono">Interactive Unit Circle &amp; Dynamic Wave Generator</span>
+                            <div id="unitCircleData" class="text-xs font-mono text-cyan-300 bg-cyan-950/80 px-3 py-1 rounded-lg border border-cyan-800 font-bold">
+                                $\theta$ = <span id="valDeg">45</span>° (<span id="valRad">0.79</span> rad)
+                            </div>
+                        </div>
+
+                        <canvas id="unitCircleCanvas" width="580" height="280" class="cursor-pointer bg-slate-950 rounded-xl border border-slate-800 w-full"></canvas>
+                        
+                        <div class="grid grid-cols-3 gap-3 w-full mt-3 text-center text-xs font-mono">
+                            <div class="bg-rose-950/60 p-2.5 rounded-xl border border-rose-800">
+                                <span class="text-slate-400 font-bold">$\cos(\theta) =$ </span>
+                                <span id="valCos" class="text-rose-400 font-bold text-sm">0.707</span>
+                            </div>
+                            <div class="bg-sky-950/60 p-2.5 rounded-xl border border-sky-800">
+                                <span class="text-slate-400 font-bold">$\sin(\theta) =$ </span>
+                                <span id="valSin" class="text-sky-400 font-bold text-sm">0.707</span>
+                            </div>
+                            <div class="bg-emerald-950/60 p-2.5 rounded-xl border border-emerald-800">
+                                <span class="text-slate-400 font-bold">$\tan(\theta) =$ </span>
+                                <span id="valTan" class="text-emerald-400 font-bold text-sm">1.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: FORMULA BANK -->
+            <section class="slide" id="slide-2">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-xl md:text-2xl font-bold font-heading text-white flex items-center gap-2">
+                        <i class="fa-solid fa-square-root-variable text-amber-400"></i>
+                        High-Yield Formula Bank &amp; Identities (ત્રિકોણમિતિ ના નિત્યસમો)
+                    </h2>
+                    <span class="text-xs font-mono bg-amber-950 border border-amber-700 text-amber-300 px-3 py-1 rounded-full font-bold">
+                        Formula Reference
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 flex-1">
+                    <!-- Column 1: Sum-to-Product (C-D Formulas) -->
+                    <div class="theme-card p-5 flex flex-col space-y-3 border-t-4 border-t-blue-500">
+                        <h3 class="text-xs font-bold text-blue-400 font-mono uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-calculator"></i> Sum-to-Product (C-D સૂત્રો)
+                        </h3>
+                        <div class="space-y-2 text-xs font-mono flex-1">
+                            <div class="math-block">$$\sin C + \sin D = 2 \sin\frac{C+D}{2} \cos\frac{C-D}{2}$$</div>
+                            <div class="math-block">$$\sin C - \sin D = 2 \cos\frac{C+D}{2} \sin\frac{C-D}{2}$$</div>
+                            <div class="math-block">$$\cos C + \cos D = 2 \cos\frac{C+D}{2} \cos\frac{C-D}{2}$$</div>
+                            <div class="math-block highlight">$$\cos C - \cos D = -2 \sin\frac{C+D}{2} \sin\frac{C-D}{2}$$</div>
+                        </div>
+                        <p class="text-[11px] text-rose-400 font-bold italic">
+                            *Note: $\cos C - \cos D$ carries a negative sign!
+                        </p>
+                    </div>
+
+                    <!-- Column 2: Double & Half Angle Identities -->
+                    <div class="theme-card p-5 flex flex-col space-y-3 border-t-4 border-t-emerald-500">
+                        <h3 class="text-xs font-bold text-emerald-400 font-mono uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-divide"></i> Half-Angle Formulas (અડધા ખૂણા)
+                        </h3>
+                        <div class="space-y-2 text-xs font-mono flex-1">
+                            <div class="math-block">$$\cos 2x = 2\cos^2 x - 1 = 1 - 2\sin^2 x$$</div>
+                            <div class="math-block highlight">$$\sin^2\frac{x}{2} = \frac{1 - \cos x}{2}$$</div>
+                            <div class="math-block highlight">$$\cos^2\frac{x}{2} = \frac{1 + \cos x}{2}$$</div>
+                            <div class="math-block">$$\tan\frac{x}{2} = \frac{\sin(x/2)}{\cos(x/2)}$$</div>
+                        </div>
+                        <p class="text-[11px] text-slate-400 italic">
+                            Essential for Questions 8, 9, 10 in સ્વાધ્યાય 3!
+                        </p>
+                    </div>
+
+                    <!-- Column 3: Teacher Solving Hacks -->
+                    <div class="theme-card p-5 flex flex-col space-y-3 border-t-4 border-t-amber-500">
+                        <h3 class="text-xs font-bold text-amber-400 font-mono uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-chalkboard-user"></i> Teaching &amp; Solving Hacks
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-300 flex-1 font-sans">
+                            <li class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-sm"></i>
+                                <span><strong>Pairing Strategy:</strong> In 4-term series ($x, 3x, 5x, 7x$), pair outer angles: $\frac{7x+x}{2} = 4x$ to factor out $\sin 4x$!</span>
+                            </li>
+                            <li class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-emerald-400 mt-0.5 text-sm"></i>
+                                <span><strong>Quadrant Proof Rule:</strong> Explicitly state interval of $x/2$ <em>before</em> taking square root to earn 100% full board step marks.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: Q1 -->
+            <section class="slide" id="slide-3">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-cyan-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-700 text-cyan-300 text-[11px] font-mono font-bold">
+                                    Problem 1 • સ્વાધ્યાય 3 Q1
+                                </span>
+                                <button onclick="toggleStepMarking('p0')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Prove Identity (સાબિત કરો):</h3>
+                            <div class="math-block text-xs py-2 font-bold">
+                                $$2 \cos \frac{\pi}{13} \cos \frac{9\pi}{13} + \cos \frac{3\pi}{13} + \cos \frac{5\pi}{13} = 0$$
+                            </div>
+                        </div>
+
+                        <!-- STEP MARKING PANEL -->
+                        <div id="p0-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [3 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p0')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Apply $2 \cos A \cos B = \cos(A+B) + \cos(A-B)$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Apply supplementary angle rule $\cos(\pi - \theta) = -\cos\theta$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>3. Cancel terms to get $0$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-cyan-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-chalkboard-user"></i> Teacher Explanation:
+                            </h4>
+                            <p class="text-slate-300 leading-relaxed">
+                                Use product-to-sum identity $2\cos A \cos B = \cos(A+B) + \cos(A-B)$ on the first term!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-cyan-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-cyan-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p0')" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p0-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Apply Product-to-Sum formula $2\cos A \cos B$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\text{LHS} = \cos\left(\frac{9\pi}{13} + \frac{\pi}{13}\right) + \cos\left(\frac{9\pi}{13} - \frac{\pi}{13}\right) + \cos\frac{3\pi}{13} + \cos\frac{5\pi}{13}$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p0-step-1">
+                                <span class="text-[11px] font-mono text-cyan-400 font-bold">Step 2: Simplify angles</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= \cos\frac{10\pi}{13} + \cos\frac{8\pi}{13} + \cos\frac{3\pi}{13} + \cos\frac{5\pi}{13}$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p0-step-2">
+                                <span class="text-[11px] font-mono text-cyan-400 font-bold">Step 3: Convert using $\cos(\pi - \theta) = -\cos\theta$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= \cos\left(\pi - \frac{3\pi}{13}\right) + \cos\left(\pi - \frac{5\pi}{13}\right) + \cos\frac{3\pi}{13} + \cos\frac{5\pi}{13} = -\cos\frac{3\pi}{13} - \cos\frac{5\pi}{13} + \cos\frac{3\pi}{13} + \cos\frac{5\pi}{13} = 0$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Result: $= 0 = \text{RHS}$ (સાબિત થાય છે - Q.E.D.)</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: Q2 -->
+            <section class="slide" id="slide-4">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-blue-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-blue-950 border border-blue-700 text-blue-300 text-[11px] font-mono font-bold">
+                                    Problem 2 • સ્વાધ્યાય 3 Q2
+                                </span>
+                                <button onclick="toggleStepMarking('p1')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Prove Identity (સાબિત કરો):</h3>
+                            <div class="math-block text-xs py-2 font-bold">
+                                $$(\sin 3x + \sin x)\sin x + (\cos 3x - \cos x)\cos x = 0$$
+                            </div>
+                        </div>
+
+                        <!-- GSEB STEP MARKING SCHEME PANEL -->
+                        <div id="p1-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [3 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p1')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Expand brackets &amp; re-group terms</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Apply $\cos(A-B)$ &amp; $\cos 2x$ identity</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>3. Simplify to $\cos 2x - \cos 2x = 0$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-cyan-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-chalkboard-user text-cyan-400"></i> Teacher Explanation:
+                            </h4>
+                            <p class="text-slate-300 leading-relaxed">
+                                Expand brackets first, then group $\cos 3x \cos x + \sin 3x \sin x$ to apply $\cos(A - B) = \cos(3x - x) = \cos 2x$ directly!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-blue-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-cyan-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p1')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p1-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">LHS Expression Expansion:</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\text{LHS} = \sin 3x \cdot \sin x + \sin^2 x + \cos 3x \cdot \cos x - \cos^2 x$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p1-step-1">
+                                <span class="text-[11px] font-mono text-cyan-400 font-bold">Step 1: Group cosine and sine product terms together</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= (\cos 3x \cdot \cos x + \sin 3x \cdot \sin x) - (\cos^2 x - \sin^2 x)$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p1-step-2">
+                                <span class="text-[11px] font-mono text-cyan-400 font-bold">Step 2: Apply $\cos(A - B)$ &amp; $\cos 2x = \cos^2 x - \sin^2 x$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= \cos(3x - x) - \cos 2x = \cos 2x - \cos 2x = 0$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Result: $= 0 = \text{RHS}$ (જે સાબિત થાય છે - Q.E.D.)</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: Q3 -->
+            <section class="slide" id="slide-5">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-emerald-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-950 border border-emerald-700 text-emerald-300 text-[11px] font-mono font-bold">
+                                    Problem 3 • સ્વાધ્યાય 3 Q3
+                                </span>
+                                <button onclick="toggleStepMarking('p2')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Sum of Squares Identity:</h3>
+                            <div class="math-block text-xs py-2 font-bold">
+                                $$(\cos x + \cos y)^2 + (\sin x - \sin y)^2 = 4 \cos^2\frac{x+y}{2}$$
+                            </div>
+                        </div>
+
+                        <div id="p2-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [4 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p2')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Apply $\cos C + \cos D$ formula</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Apply $\sin C - \sin D$ formula</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>3. Factor out $4 \cos^2\frac{x+y}{2}$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>4. Simplify bracket using $\cos^2\theta + \sin^2\theta = 1$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-emerald-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-lightbulb text-emerald-400"></i> Classroom Key Concept:
+                            </h4>
+                            <p class="text-slate-300">
+                                Apply sum-to-product C-D formulas <em>inside</em> the brackets before squaring!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-emerald-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-emerald-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p2')" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p2-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Substitute C-D formulas inside squared terms</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\text{LHS} = \left[ 2 \cos\frac{x+y}{2} \cos\frac{x-y}{2} \right]^2 + \left[ 2 \cos\frac{x+y}{2} \sin\frac{x-y}{2} \right]^2$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p2-step-1">
+                                <span class="text-[11px] font-mono text-emerald-400 font-bold">Step 2: Factor out common term $4 \cos^2\frac{x+y}{2}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= 4 \cos^2\frac{x+y}{2} \cdot \left[ \cos^2\frac{x-y}{2} + \sin^2\frac{x-y}{2} \right]$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p2-step-2">
+                                <span class="text-[11px] font-mono text-emerald-400 font-bold">Step 3: Simplify inner bracket using $\cos^2\theta + \sin^2\theta = 1$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= 4 \cos^2\frac{x+y}{2} \cdot [1]$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Final Answer: $= 4 \cos^2\frac{x+y}{2} = \text{RHS}$ (જે સાબિત થાય છે)</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: Q4 -->
+            <section class="slide" id="slide-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-purple-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-purple-950 border border-purple-700 text-purple-300 text-[11px] font-mono font-bold">
+                                    Problem 4 • સ્વાધ્યાય 3 Q4
+                                </span>
+                                <button onclick="toggleStepMarking('p3')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Difference of Squares Proof:</h3>
+                            <div class="math-block text-xs py-2 font-bold">
+                                $$(\cos x - \cos y)^2 + (\sin x - \sin y)^2 = 4 \sin^2\frac{x-y}{2}$$
+                            </div>
+                        </div>
+
+                        <div id="p3-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [4 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p3')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Apply $\cos x - \cos y = -2\sin\sin$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Apply $\sin x - \sin y = 2\cos\sin$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>3. Factor out $4 \sin^2\frac{x-y}{2}$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>4. Simplify $\sin^2 + \cos^2 = 1$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-purple-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-triangle-exclamation text-purple-400"></i> Common Student Pitfall:
+                            </h4>
+                            <p class="text-slate-300">
+                                When squaring $\left[-2 \sin\frac{x+y}{2} \sin\frac{x-y}{2}\right]^2$, the negative sign turns into positive $+4$!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-purple-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-purple-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p3')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p3-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Apply C-D formulas</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\text{LHS} = \left[ -2 \sin\frac{x+y}{2} \sin\frac{x-y}{2} \right]^2 + \left[ 2 \cos\frac{x+y}{2} \sin\frac{x-y}{2} \right]^2$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p3-step-1">
+                                <span class="text-[11px] font-mono text-purple-400 font-bold">Step 2: Factor out common term $4 \sin^2\frac{x-y}{2}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= 4 \sin^2\frac{x-y}{2} \cdot \left[ \sin^2\frac{x+y}{2} + \cos^2\frac{x+y}{2} \right]$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p3-step-2">
+                                <span class="text-[11px] font-mono text-purple-400 font-bold">Step 3: Simplify bracket to 1</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= 4 \sin^2\frac{x-y}{2} \cdot [1]$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Final Result: $= 4 \sin^2\frac{x-y}{2} = \text{RHS}$ (સાબિત થાય છે)</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: Q5 -->
+            <section class="slide" id="slide-7">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-amber-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-amber-950 border border-amber-700 text-amber-300 text-[11px] font-mono font-bold">
+                                    Problem 5 • સ્વાધ્યાય 3 Q5
+                                </span>
+                                <button onclick="toggleStepMarking('p4')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">4-Term Series Proof:</h3>
+                            <div class="math-block text-xs py-2 font-bold">
+                                $$\sin x + \sin 3x + \sin 5x + \sin 7x = 4 \cos x \cos 2x \sin 4x$$
+                            </div>
+                        </div>
+
+                        <div id="p4-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [4 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p4')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Pair terms: $(7x, x)$ and $(5x, 3x)$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Apply $\sin C + \sin D$ formula to both</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>3. Factor out common $2\sin 4x$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>4. Apply $\cos C + \cos D$ to inner terms</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-amber-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-lightbulb text-amber-400"></i> Pairing Hack:
+                            </h4>
+                            <p class="text-slate-300">
+                                Average angles: $\frac{7+1}{2} = 4$ and $\frac{5+3}{2} = 4$. This guarantees $\sin 4x$ as a common factor!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-amber-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-amber-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p4')" class="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p4-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Group extreme and inner terms</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\text{LHS} = (\sin 7x + \sin x) + (\sin 5x + \sin 3x)$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p4-step-1">
+                                <span class="text-[11px] font-mono text-amber-400 font-bold">Step 2: Apply $\sin C + \sin D = 2 \sin\frac{C+D}{2} \cos\frac{C-D}{2}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= 2 \sin 4x \cos 3x + 2 \sin 4x \cos x$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p4-step-2">
+                                <span class="text-[11px] font-mono text-amber-400 font-bold">Step 3: Factor out $2 \sin 4x$ &amp; apply $\cos 3x + \cos x = 2 \cos 2x \cos x$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= 2 \sin 4x [\cos 3x + \cos x] = 2 \sin 4x [2 \cos 2x \cos x]$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Final Answer: $= 4 \cos x \cos 2x \sin 4x = \text{RHS}$ (સાબિત થાય છે)</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: Q6 -->
+            <section class="slide" id="slide-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-rose-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-rose-950 border border-rose-700 text-rose-300 text-[11px] font-mono font-bold">
+                                    Problem 6 • સ્વાધ્યાય 3 Q6
+                                </span>
+                                <button onclick="toggleStepMarking('p6_q6')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Fraction Identity Proof:</h3>
+                            <div class="math-block text-xs py-2 font-bold">
+                                $$\frac{(\sin 7x + \sin 5x) + (\sin 9x + \sin 3x)}{(\cos 7x + \cos 5x) + (\cos 9x + \cos 3x)} = \tan 6x$$
+                            </div>
+                        </div>
+
+                        <div id="p6_q6-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [4 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p6_q6')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Apply $\sin C + \sin D$ to numerator terms</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Apply $\cos C + \cos D$ to denominator terms</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>3. Factor out common $2\sin 6x$ and $2\cos 6x$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>4. Simplify to $\frac{\sin 6x}{\cos 6x} = \tan 6x$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-rose-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-lightbulb"></i> Key Solving Tip:
+                            </h4>
+                            <p class="text-slate-300">
+                                Notice how both pairs in numerator produce $\sin 6x$ and denominator pairs produce $\cos 6x$!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-rose-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-rose-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p6_q6')" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p6_q6-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Apply C-D sum formulas to Numerator &amp; Denominator</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\text{LHS} = \frac{2 \sin 6x \cos x + 2 \sin 6x \cos 3x}{2 \cos 6x \cos x + 2 \cos 6x \cos 3x}$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p6_q6-step-1">
+                                <span class="text-[11px] font-mono text-rose-400 font-bold">Step 2: Factor out $2\sin 6x$ in numerator and $2\cos 6x$ in denominator</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= \frac{2 \sin 6x \cdot (\cos x + \cos 3x)}{2 \cos 6x \cdot (\cos x + \cos 3x)}$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p6_q6-step-2">
+                                <span class="text-[11px] font-mono text-rose-400 font-bold">Step 3: Cancel common factor $(\cos x + \cos 3x)$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= \frac{\sin 6x}{\cos 6x} = \tan 6x$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Final Answer: $= \tan 6x = \text{RHS}$ (સાબિત થાય છે)</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: Q7 -->
+            <section class="slide" id="slide-9">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-indigo-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-indigo-950 border border-indigo-700 text-indigo-300 text-[11px] font-mono font-bold">
+                                    Problem 7 • સ્વાધ્યાય 3 Q7
+                                </span>
+                                <button onclick="toggleStepMarking('p7_q7')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Triple Angle Identity Proof:</h3>
+                            <div class="math-block text-xs py-2 font-bold">
+                                $$\sin 3x + \sin 2x - \sin x = 4 \sin x \cos\frac{x}{2} \cos\frac{3x}{2}$$
+                            </div>
+                        </div>
+
+                        <div id="p7_q7-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [4 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p7_q7')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Group $(\sin 3x - \sin x) + \sin 2x$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Apply $\sin 3x - \sin x = 2\cos 2x \sin x$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>3. Factor out $2\sin x$ &amp; apply $\cos 2x + \cos x$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>4. Simplify to $4 \sin x \cos\frac{x}{2} \cos\frac{3x}{2}$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-indigo-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-lightbulb"></i> Pairing Strategy:
+                            </h4>
+                            <p class="text-slate-300">
+                                Group $\sin 3x - \sin x$ together first! This yields $2\cos 2x \sin x$, which pairs perfectly with $\sin 2x = 2\sin x \cos x$.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-indigo-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-indigo-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p7_q7')" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p7_q7-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Group terms as $(\sin 3x - \sin x) + \sin 2x$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\text{LHS} = 2 \cos 2x \sin x + 2 \sin x \cos x$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p7_q7-step-1">
+                                <span class="text-[11px] font-mono text-indigo-400 font-bold">Step 2: Factor out $2 \sin x$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= 2 \sin x (\cos 2x + \cos x)$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p7_q7-step-2">
+                                <span class="text-[11px] font-mono text-indigo-400 font-bold">Step 3: Apply $\cos C + \cos D = 2 \cos\frac{C+D}{2} \cos\frac{C-D}{2}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$= 2 \sin x \left[ 2 \cos\frac{3x}{2} \cos\frac{x}{2} \right] = 4 \sin x \cos\frac{x}{2} \cos\frac{3x}{2}$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Final Answer: $= 4 \sin x \cos\frac{x}{2} \cos\frac{3x}{2} = \text{RHS}$ (સાબિત થાય છે)</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10: Q8 -->
+            <section class="slide" id="slide-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-cyan-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-700 text-cyan-300 text-[11px] font-mono font-bold">
+                                    Problem 8 • સ્વાધ્યાય 3 Q8
+                                </span>
+                                <button onclick="toggleStepMarking('p8_q8')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Half-Angle Evaluation:</h3>
+                            <p class="text-xs text-slate-300">
+                                Given $\tan x = -\frac{4}{3}$ where $x$ is in <strong>Quadrant II (દ્વિતીય ચરણ)</strong>, find $\sin\frac{x}{2}, \cos\frac{x}{2}, \tan\frac{x}{2}$.
+                            </p>
+                            <div class="math-block highlight text-xs py-1.5">
+                                $$\sec^2 x = 1 + \tan^2 x = 1 + \frac{16}{9} = \frac{25}{9} \implies \cos x = -\frac{3}{5}$$
+                            </div>
+                        </div>
+
+                        <div id="p8_q8-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [4 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p8_q8')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Calculate $\cos x = -\frac{3}{5}$ (Quad II)</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Determine range for $x/2$ ($\frac{\pi}{4} < x/2 < \frac{\pi}{2}$) Quad I</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>3. Compute $\sin(x/2) = \frac{2}{\sqrt{5}}$ &amp; $\cos(x/2) = \frac{1}{\sqrt{5}}$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>4. Compute $\tan(x/2) = 2$</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-cyan-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-compass"></i> Quadrant Check:
+                            </h4>
+                            <p class="text-slate-300">
+                                Since $\frac{\pi}{2} < x < \pi \implies \frac{\pi}{4} < \frac{x}{2} < \frac{\pi}{2}$ (Quadrant I). All half-angle functions are <strong>POSITIVE</strong>!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-cyan-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-cyan-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p8_q8')" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p8_q8-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Compute $\sin(x/2) = \sqrt{\frac{1-\cos x}{2}}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\sin\frac{x}{2} = \sqrt{\frac{1 - (-3/5)}{2}} = \sqrt{\frac{8/5}{2}} = \sqrt{\frac{4}{5}} = \frac{2}{\sqrt{5}} = \frac{2\sqrt{5}}{5}$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p8_q8-step-1">
+                                <span class="text-[11px] font-mono text-cyan-400 font-bold">Step 2: Compute $\cos(x/2) = \sqrt{\frac{1+\cos x}{2}}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\cos\frac{x}{2} = \sqrt{\frac{1 + (-3/5)}{2}} = \sqrt{\frac{2/5}{2}} = \sqrt{\frac{1}{5}} = \frac{1}{\sqrt{5}} = \frac{\sqrt{5}}{5}$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p8_q8-step-2">
+                                <span class="text-[11px] font-mono text-cyan-400 font-bold">Step 3: Compute $\tan(x/2) = \frac{\sin(x/2)}{\cos(x/2)}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\tan\frac{x}{2} = \frac{2/\sqrt{5}}{1/\sqrt{5}} = 2$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Final Values: $\sin\frac{x}{2} = \frac{2\sqrt{5}}{5}, \cos\frac{x}{2} = \frac{\sqrt{5}}{5}, \tan\frac{x}{2} = 2$</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 11: Q9 -->
+            <section class="slide" id="slide-11">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-rose-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-rose-950 border border-rose-700 text-rose-300 text-[11px] font-mono font-bold">
+                                    Problem 9 • સ્વાધ્યાય 3 Q9
+                                </span>
+                                <button onclick="toggleStepMarking('p5')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Half-Angle Evaluation:</h3>
+                            <p class="text-xs text-slate-300">
+                                Given $\cos x = -\frac{1}{3}$ where $x$ lies in <strong>Quadrant III (તૃતીય ચરણ)</strong>, calculate $\sin\frac{x}{2}, \cos\frac{x}{2}, \tan\frac{x}{2}$.
+                            </p>
+                            <div class="math-block warning text-xs py-1.5">
+                                $$\pi < x < \frac{3\pi}{2} \text{ (Quadrant III)}$$
+                            </div>
+                        </div>
+
+                        <div id="p5-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [4 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p5')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Determine range for $x/2$ ($\frac{\pi}{2} < x/2 < \frac{3\pi}{4}$)</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Calculate $\sin(x/2)$ (+ sign in Q2)</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>3. Calculate $\cos(x/2)$ (- sign in Q2)</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>4. Calculate $\tan(x/2)$ ratio</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-rose-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-compass text-rose-400"></i> Quadrant Diagnostic:
+                            </h4>
+                            <p class="text-slate-300">
+                                Divide range by 2: $\frac{\pi}{2} < \frac{x}{2} < \frac{3\pi}{4}$ (Quadrant II).
+                                In Quad II: $\sin(x/2) > 0$, $\cos(x/2) < 0$, $\tan(x/2) < 0$.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-rose-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-rose-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p5')" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p5-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Compute $\sin(x/2) = +\sqrt{\frac{1-\cos x}{2}}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\sin\frac{x}{2} = +\sqrt{\frac{1 - (-1/3)}{2}} = \sqrt{\frac{4/3}{2}} = \sqrt{\frac{2}{3}} = \frac{\sqrt{6}}{3}$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p5-step-1">
+                                <span class="text-[11px] font-mono text-rose-400 font-bold">Step 2: Compute $\cos(x/2) = -\sqrt{\frac{1+\cos x}{2}}$ (Minus sign due to Quad II)</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\cos\frac{x}{2} = -\sqrt{\frac{1 + (-1/3)}{2}} = -\sqrt{\frac{2/3}{2}} = -\frac{1}{\sqrt{3}} = -\frac{\sqrt{3}}{3}$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p5-step-2">
+                                <span class="text-[11px] font-mono text-rose-400 font-bold">Step 3: Compute $\tan(x/2) = \frac{\sin(x/2)}{\cos(x/2)}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\tan\frac{x}{2} = \frac{\sqrt{6}/3}{-\sqrt{3}/3} = -\sqrt{2}$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Final Values: $\sin\frac{x}{2} = \frac{\sqrt{6}}{3}, \cos\frac{x}{2} = -\frac{\sqrt{3}}{3}, \tan\frac{x}{2} = -\sqrt{2}$</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 12: Q10 -->
+            <section class="slide" id="slide-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 h-full">
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <div class="theme-card p-4 border-l-4 border-l-indigo-500 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-full bg-indigo-950 border border-indigo-700 text-indigo-300 text-[11px] font-mono font-bold">
+                                    Problem 10 • સ્વાધ્યાય 3 Q10
+                                </span>
+                                <button onclick="toggleStepMarking('p6')" class="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clipboard-check text-amber-400"></i>
+                                    <span>GSEB Marks</span>
+                                </button>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Given $\sin x = \frac{1}{4}$ in Quadrant II:</h3>
+                            <p class="text-xs text-slate-300">
+                                Find $\sin\frac{x}{2}, \cos\frac{x}{2}, \tan\frac{x}{2}$ where $\frac{\pi}{2} < x < \pi$.
+                            </p>
+                            <div class="math-block highlight text-xs py-1.5">
+                                $$\cos x = -\sqrt{1 - \sin^2 x} = -\sqrt{1 - 1/16} = -\frac{\sqrt{15}}{4}$$
+                            </div>
+                        </div>
+
+                        <div id="p6-marking" class="marking-panel theme-card p-3 border-l-4 border-l-amber-500 text-xs space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                                <h4 class="font-bold text-amber-300 uppercase font-mono tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award text-amber-400"></i> GSEB Marking Scheme [4 Marks]
+                                </h4>
+                                <button onclick="toggleStepMarking('p6')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>1. Calculate $\cos x = -\frac{\sqrt{15}}{4}$ (Quad II)</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>2. Determine range ($\frac{\pi}{4} < x/2 < \frac{\pi}{2}$) Quad I</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between border-b border-slate-800/80 pb-1">
+                                    <span>3. Calculate $\sin(x/2)$ and $\cos(x/2)$ (both +)</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>4. Calculate $\tan(x/2)$ ratio</span>
+                                    <span class="text-emerald-400 font-bold">+1.0 Mark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-card p-3 flex-1 text-xs space-y-2 bg-slate-900/60">
+                            <h4 class="font-bold text-indigo-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-compass text-indigo-400"></i> Range Check:
+                            </h4>
+                            <p class="text-slate-300">
+                                Since $\frac{\pi}{2} < x < \pi \implies \frac{\pi}{4} < \frac{x}{2} < \frac{\pi}{2}$ (Quadrant I). All values are <strong>POSITIVE</strong>!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 theme-card p-4 flex flex-col justify-between border-2 border-dashed border-indigo-900 bg-slate-950">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-indigo-400 font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user"></i> SMARTBOARD SOLUTION WORKSPACE
+                            </span>
+                            <button onclick="revealNextStep('p6')" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-xs">
+                                Reveal Next Step <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3 py-3 flex-1 overflow-y-auto" id="p6-steps">
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 opacity-100 shadow-xs">
+                                <span class="text-[11px] font-mono text-slate-400 font-bold">Step 1: Calculate $\sin(x/2) = \sqrt{\frac{1-\cos x}{2}}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\sin\frac{x}{2} = \sqrt{\frac{1 - (-\sqrt{15}/4)}{2}} = \sqrt{\frac{4 + \sqrt{15}}{8}} = \frac{\sqrt{5} + \sqrt{3}}{4}$$
+                                </p>
+                            </div>
+                            
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p6-step-1">
+                                <span class="text-[11px] font-mono text-indigo-400 font-bold">Step 2: Calculate $\cos(x/2) = \sqrt{\frac{1+\cos x}{2}}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\cos\frac{x}{2} = \sqrt{\frac{1 + (-\sqrt{15}/4)}{2}} = \sqrt{\frac{4 - \sqrt{15}}{8}} = \frac{\sqrt{5} - \sqrt{3}}{4}$$
+                                </p>
+                            </div>
+
+                            <div class="step-box p-3.5 rounded-xl bg-slate-900 border border-slate-800 hidden opacity-0 transition-all shadow-xs" id="p6-step-2">
+                                <span class="text-[11px] font-mono text-indigo-400 font-bold">Step 3: Calculate $\tan(x/2) = \frac{\sin(x/2)}{\cos(x/2)}$</span>
+                                <p class="font-mono text-xs text-slate-200 mt-1 font-bold">
+                                    $$\tan\frac{x}{2} = \frac{\sqrt{5}+\sqrt{3}}{\sqrt{5}-\sqrt{3}} = 4 + \sqrt{15}$$
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-between">
+                            <span class="font-mono text-xs text-emerald-300 font-bold">Final Values: $\sin\frac{x}{2} = \frac{\sqrt{5}+\sqrt{3}}{4}, \cos\frac{x}{2} = \frac{\sqrt{5}-\sqrt{3}}{4}, \tan\frac{x}{2} = 4+\sqrt{15}$</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 13: DIAGNOSTIC QUIZ -->
+            <section class="slide" id="slide-13">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-xl md:text-2xl font-bold font-heading text-white flex items-center gap-2">
+                        <i class="fa-solid fa-square-poll-vertical text-cyan-400"></i>
+                        Interactive Classroom Diagnostic Quiz
+                    </h2>
+                    <span class="text-xs font-mono bg-blue-950 border border-blue-700 text-blue-300 px-3 py-1 rounded-full font-bold">
+                        Live Assessment
+                    </span>
+                </div>
+
+                <div class="theme-card p-6 max-w-3xl mx-auto w-full space-y-5">
+                    <div id="quizContainer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono text-cyan-400 uppercase font-bold">GSEB Std 11 Diagnostic</span>
+                            <span id="scoreCounter" class="text-xs font-mono bg-slate-800 px-2.5 py-1 rounded-lg text-amber-300 font-bold">Score: 0/1</span>
+                        </div>
+                        
+                        <h3 class="text-base font-bold text-white mb-4 leading-relaxed">
+                            If angle $x$ lies in Quadrant III ($\pi < x < \frac{3\pi}{2}$), what are the signs of $\sin(x/2)$ and $\cos(x/2)$ respectively?
+                        </h3>
+
+                        <div class="space-y-3">
+                            <button onclick="checkQuiz(this, false)" class="w-full text-left p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200 hover:border-cyan-500 transition-all flex items-center justify-between font-bold shadow-xs">
+                                <span>A) $\sin(x/2) < 0$ (-) and $\cos(x/2) > 0$ (+)</span>
+                                <i class="fa-regular fa-circle text-slate-600"></i>
+                            </button>
+                            <button onclick="checkQuiz(this, true)" class="w-full text-left p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200 hover:border-cyan-500 transition-all flex items-center justify-between font-bold shadow-xs">
+                                <span>B) $\sin(x/2) > 0$ (+) and $\cos(x/2) < 0$ (-) because $x/2$ lies in Quadrant II</span>
+                                <i class="fa-regular fa-circle text-slate-600"></i>
+                            </button>
+                            <button onclick="checkQuiz(this, false)" class="w-full text-left p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200 hover:border-cyan-500 transition-all flex items-center justify-between font-bold shadow-xs">
+                                <span>C) Both $\sin(x/2)$ and $\cos(x/2)$ are negative (-)</span>
+                                <i class="fa-regular fa-circle text-slate-600"></i>
+                            </button>
+                        </div>
+
+                        <div id="quizFeedback" class="mt-4 p-4 rounded-xl hidden text-xs font-mono leading-relaxed"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 14: SUMMARY & HOMEWORK -->
+            <section class="slide" id="slide-14">
+                <div class="flex-1 flex flex-col items-center justify-center text-center max-w-3xl mx-auto space-y-6">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-950 border border-emerald-700 text-emerald-400 flex items-center justify-center text-3xl shadow-lg">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+
+                    <h2 class="text-3xl font-extrabold font-heading text-white">
+                        Classroom Masterclass Complete!
+                    </h2>
+                    <p class="text-xs text-slate-300 max-w-lg leading-relaxed">
+                        You have successfully covered GSEB Std 11 Trigonometry (સ્વાધ્યાય 3) with step proofs, quadrant rules, and board marking standards.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left w-full mt-2">
+                        <div class="theme-card p-4 border-l-4 border-l-blue-500">
+                            <h4 class="text-xs font-mono font-bold text-blue-400 uppercase mb-1">Homework Assignment (ગૃહકાર્ય)</h4>
+                            <p class="text-xs text-slate-300 font-sans">Solve Questions 1 through 10 of GSEB Std 11 Chapter 3 સ્વાધ્યાય 3 in your notebook with step markings.</p>
+                        </div>
+                        <div class="theme-card p-4 border-l-4 border-l-amber-500">
+                            <h4 class="text-xs font-mono font-bold text-amber-400 uppercase mb-1">GSEB Board Exam Tip</h4>
+                            <p class="text-xs text-slate-300 font-sans">Always state the quadrant range of half-angles explicitly before taking square roots to guarantee full marks!</p>
+                        </div>
+                    </div>
+
+                    <button onclick="goToSlide(0)" class="mt-4 px-6 py-2.5 rounded-xl bg-slate-800 text-white text-xs font-bold hover:bg-slate-700 transition-all shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-rotate-left"></i> Restart Masterclass Deck
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="relative z-50 h-16 border-t border-slate-800 bg-slate-900/95 backdrop-blur-md px-4 md:px-6 flex items-center justify-between shadow-lg">
+        <!-- Prev Slide Button -->
+        <button onclick="prevSlide()" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-slate-200 hover:bg-slate-700 transition-all active:scale-95 shadow-xs">
+            <i class="fa-solid fa-chevron-left text-cyan-400"></i> Previous
+        </button>
+
+        <!-- Slide Indicators Dots -->
+        <div class="flex items-center gap-1.5" id="slideDots"></div>
+
+        <!-- Next Slide Button -->
+        <button onclick="nextSlide()" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold text-xs shadow-md shadow-cyan-500/20 hover:from-blue-500 hover:to-cyan-500 transition-all active:scale-95">
+            Next <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </footer>
+
+    <script>
+        /* State Variables */
+        let currentSlide = 0;
+        const totalSlides = 15;
+        let isDarkMode = true;
+        let laserActive = false;
+        let timerSeconds = 0;
+        let timerInterval = null;
+        let score = 0;
+
+        /* Web Audio API Sound Feedback */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playTone(freq = 440, type = 'sine', duration = 0.08) {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        /* Slide Navigation */
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+            
+            document.querySelectorAll('.slide').forEach((s, idx) => {
+                s.classList.toggle('active', idx === index);
+            });
+            
+            currentSlide = index;
+            document.getElementById('slideSelect').value = index;
+            updateDots();
+            playTone(520, 'sine', 0.05);
+
+            if (index === 1) drawUnitCircleAndWaves();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) goToSlide(currentSlide - 1);
+        }
+
+        function updateDots() {
+            const container = document.getElementById('slideDots');
+            container.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.className = `h-2 rounded-full transition-all ${i === currentSlide ? 'bg-cyan-400 w-6' : 'bg-slate-700 w-2 hover:bg-slate-500'}`;
+                dot.onclick = () => goToSlide(i);
+                container.appendChild(dot);
+            }
+        }
+
+        document.getElementById('slideSelect').addEventListener('change', (e) => {
+            goToSlide(parseInt(e.target.value));
+        });
+
+        /* Formula Modal Toggle */
+        function toggleFormulaModal() {
+            const modal = document.getElementById('formulaModal');
+            modal.classList.toggle('hidden');
+            playTone(600, 'sine', 0.08);
+        }
+
+        /* Dark / Light Theme */
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark', isDarkMode);
+            document.body.classList.toggle('dark', isDarkMode);
+            document.body.classList.toggle('light', !isDarkMode);
+
+            const icon = document.getElementById('themeIcon');
+            const label = document.getElementById('themeLabel');
+
+            if (isDarkMode) {
+                icon.className = 'fa-solid fa-moon text-amber-300';
+                label.innerText = 'Dark';
+            } else {
+                icon.className = 'fa-solid fa-sun text-amber-500';
+                label.innerText = 'Light';
+            }
+
+            playTone(isDarkMode ? 320 : 640, 'triangle', 0.1);
+            if (currentSlide === 1) drawUnitCircleAndWaves();
+        }
+
+        /* Laser Pointer Mode */
+        const laserPointer = document.getElementById('laserPointer');
+        function toggleLaserPointer() {
+            laserActive = !laserActive;
+            laserPointer.classList.toggle('active', laserActive);
+            document.getElementById('laserBtn').classList.toggle('bg-rose-700', laserActive);
+            playTone(750, 'sine', 0.05);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            if (laserActive) {
+                laserPointer.style.left = e.clientX + 'px';
+                laserPointer.style.top = e.clientY + 'px';
+            }
+        });
+
+        /* Class Practice Timer */
+        function toggleClassTimer() {
+            const display = document.getElementById('timerDisplay');
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                display.innerText = 'Timer';
+                playTone(300, 'triangle', 0.08);
+            } else {
+                timerSeconds = 120; // 2 minute countdown
+                display.innerText = '02:00';
+                playTone(600, 'triangle', 0.08);
+                timerInterval = setInterval(() => {
+                    timerSeconds--;
+                    const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+                    const s = (timerSeconds % 60).toString().padStart(2, '0');
+                    display.innerText = `${m}:${s}`;
+                    if (timerSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        display.innerText = 'Time Up!';
+                        playTone(880, 'sine', 0.3);
+                    }
+                }, 1000);
+            }
+        }
+
+        /* Toggle Hidable GSEB Step Marking Panel */
+        function toggleStepMarking(problemId) {
+            const panel = document.getElementById(`${problemId}-marking`);
+            if (panel) {
+                panel.classList.toggle('open');
+                playTone(panel.classList.contains('open') ? 700 : 350, 'sine', 0.08);
+            }
+        }
+
+        function toggleAllMarkingSchemes() {
+            const panels = document.querySelectorAll('.marking-panel');
+            const anyOpen = Array.from(panels).some(p => p.classList.contains('open'));
+            panels.forEach(p => {
+                if (anyOpen) p.classList.remove('open');
+                else p.classList.add('open');
+            });
+            playTone(anyOpen ? 300 : 600, 'triangle', 0.1);
+        }
+
+        /* Step-by-Step Solution Reveal */
+        function revealNextStep(problemId) {
+            const steps = document.querySelectorAll(`[id^="${problemId}-step-"]`);
+            for (let step of steps) {
+                if (step.classList.contains('hidden')) {
+                    step.classList.remove('hidden');
+                    setTimeout(() => {
+                        step.classList.remove('opacity-0');
+                    }, 20);
+                    playTone(640, 'triangle', 0.08);
+                    return;
+                }
+            }
+        }
+
+        /* Quiz Logic */
+        function checkQuiz(btn, isCorrect) {
+            const feedback = document.getElementById('quizFeedback');
+            feedback.classList.remove('hidden', 'bg-emerald-950/80', 'text-emerald-300', 'bg-rose-950/80', 'text-rose-300');
+            
+            if (isCorrect) {
+                feedback.classList.add('bg-emerald-950/80', 'text-emerald-300', 'border', 'border-emerald-700');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2 text-emerald-400"></i> <strong>Correct!</strong> Halving the interval $(\pi, \frac{3\pi}{2})$ yields $(\frac{\pi}{2}, \frac{3\pi}{4})$ in Quadrant II, where sine is positive (+) and cosine is negative (-).';
+                btn.classList.add('border-emerald-500', 'bg-emerald-950/50');
+                score = 1;
+                document.getElementById('scoreCounter').innerText = 'Score: 1/1';
+                playTone(880, 'sine', 0.15);
+            } else {
+                feedback.classList.add('bg-rose-950/80', 'text-rose-300', 'border', 'border-rose-700');
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark mr-2 text-rose-400"></i> <strong>Incorrect.</strong> Divide endpoints by 2: $\frac{\pi}{2} < \frac{x}{2} < \frac{3\pi}{4}$ (2nd Quadrant).';
+                btn.classList.add('border-rose-500', 'bg-rose-950/50');
+                playTone(220, 'sawtooth', 0.15);
+            }
+            if (window.renderMathInElement) {
+                renderMathInElement(feedback);
+            }
+        }
+
+        /* Dynamic Unit Circle & Wave Projection Canvas */
+        let currentAngleRad = Math.PI / 4;
+        const ucCanvas = document.getElementById('unitCircleCanvas');
+        const ucCtx = ucCanvas ? ucCanvas.getContext('2d') : null;
+
+        function drawUnitCircleAndWaves() {
+            if (!ucCanvas || !ucCtx) return;
+            const w = ucCanvas.width;
+            const h = ucCanvas.height;
+            const radius = 80;
+            const cx = 130;
+            const cy = h / 2;
+
+            ucCtx.clearRect(0, 0, w, h);
+
+            // Left: Unit Circle Axes
+            ucCtx.strokeStyle = isDarkMode ? '#334155' : '#CBD5E1';
+            ucCtx.lineWidth = 1.5;
+            ucCtx.beginPath();
+            ucCtx.moveTo(20, cy); ucCtx.lineTo(240, cy);
+            ucCtx.moveTo(cx, 20); ucCtx.lineTo(cx, h - 20);
+            ucCtx.stroke();
+
+            // Unit Circle boundary
+            ucCtx.strokeStyle = isDarkMode ? '#64748B' : '#94A3B8';
+            ucCtx.lineWidth = 2;
+            ucCtx.beginPath();
+            ucCtx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ucCtx.stroke();
+
+            // Point P on circle
+            const px = cx + radius * Math.cos(currentAngleRad);
+            const py = cy - radius * Math.sin(currentAngleRad);
+
+            // Hypotenuse line
+            ucCtx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
+            ucCtx.lineWidth = 2;
+            ucCtx.beginPath();
+            ucCtx.moveTo(cx, cy); ucCtx.lineTo(px, py);
+            ucCtx.stroke();
+
+            // Cosine vector (Rose)
+            ucCtx.strokeStyle = '#F43F5E';
+            ucCtx.lineWidth = 3;
+            ucCtx.beginPath();
+            ucCtx.moveTo(cx, cy); ucCtx.lineTo(px, cy);
+            ucCtx.stroke();
+
+            // Sine vector (Sky blue)
+            ucCtx.strokeStyle = '#38BDF8';
+            ucCtx.lineWidth = 3;
+            ucCtx.beginPath();
+            ucCtx.moveTo(px, cy); ucCtx.lineTo(px, py);
+            ucCtx.stroke();
+
+            // Interactive Point handle
+            ucCtx.fillStyle = '#38BDF8';
+            ucCtx.beginPath();
+            ucCtx.arc(px, py, 6, 0, Math.PI * 2);
+            ucCtx.fill();
+
+            // Right: Sine Wave Grapher Projection
+            const waveXStart = 280;
+            const waveWidth = w - waveXStart - 20;
+
+            // Wave Axes
+            ucCtx.strokeStyle = isDarkMode ? '#334155' : '#CBD5E1';
+            ucCtx.lineWidth = 1.5;
+            ucCtx.beginPath();
+            ucCtx.moveTo(waveXStart, cy); ucCtx.lineTo(waveXStart + waveWidth, cy);
+            ucCtx.stroke();
+
+            // Projection dashed line from Unit Circle point to Wave
+            ucCtx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+            ucCtx.setLineDash([4, 4]);
+            ucCtx.beginPath();
+            ucCtx.moveTo(px, py);
+            ucCtx.lineTo(waveXStart, py);
+            ucCtx.stroke();
+            ucCtx.setLineDash([]);
+
+            // Plot Sine Wave
+            ucCtx.strokeStyle = '#38BDF8';
+            ucCtx.lineWidth = 2.5;
+            ucCtx.beginPath();
+            for (let x = 0; x <= waveWidth; x += 2) {
+                const angle = currentAngleRad + (x / waveWidth) * Math.PI * 2;
+                const wy = cy - radius * Math.sin(angle);
+                if (x === 0) ucCtx.moveTo(waveXStart + x, wy);
+                else ucCtx.lineTo(waveXStart + x, wy);
+            }
+            ucCtx.stroke();
+
+            // Values display update
+            const deg = Math.round((currentAngleRad * 180 / Math.PI + 360) % 360);
+            const cosVal = Math.cos(currentAngleRad);
+            const sinVal = Math.sin(currentAngleRad);
+            const tanVal = Math.abs(cosVal) > 0.001 ? (sinVal / cosVal) : Infinity;
+
+            document.getElementById('valDeg').innerText = deg;
+            document.getElementById('valRad').innerText = currentAngleRad.toFixed(2);
+            document.getElementById('valCos').innerText = cosVal.toFixed(3);
+            document.getElementById('valSin').innerText = sinVal.toFixed(3);
+            document.getElementById('valTan').innerText = isFinite(tanVal) ? tanVal.toFixed(3) : '∞';
+        }
+
+        let isDraggingUC = false;
+        if (ucCanvas) {
+            function updateAngleFromMouse(e) {
+                const rect = ucCanvas.getBoundingClientRect();
+                const scaleX = ucCanvas.width / rect.width;
+                const scaleY = ucCanvas.height / rect.height;
+                const mx = (e.clientX - rect.left) * scaleX - 130;
+                const my = (e.clientY - rect.top) * scaleY - ucCanvas.height / 2;
+                currentAngleRad = Math.atan2(-my, mx);
+                drawUnitCircleAndWaves();
+            }
+
+            ucCanvas.addEventListener('mousedown', (e) => { isDraggingUC = true; updateAngleFromMouse(e); });
+            window.addEventListener('mousemove', (e) => { if (isDraggingUC) updateAngleFromMouse(e); });
+            window.addEventListener('mouseup', () => { isDraggingUC = false; });
+        }
+
+        /* Smartboard Annotator Pen */
+        const drawCanvas = document.getElementById('drawingCanvas');
+        const drawCtx = drawCanvas.getContext('2d');
+        let penActive = false;
+        let isDrawing = false;
+        let penColor = '#38BDF8';
+
+        function resizeCanvas() {
+            drawCanvas.width = drawCanvas.offsetWidth;
+            drawCanvas.height = drawCanvas.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function togglePenTool() {
+            penActive = !penActive;
+            drawCanvas.classList.toggle('active-pen', penActive);
+            document.getElementById('penToolbar').classList.toggle('hidden', !penActive);
+            document.getElementById('togglePenBtn').classList.toggle('bg-slate-700', penActive);
+            playTone(400, 'sine', 0.05);
+        }
+
+        function setPenColor(color) {
+            penColor = color;
+        }
+
+        function clearCanvas() {
+            drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+        }
+
+        drawCanvas.addEventListener('mousedown', (e) => {
+            if (!penActive) return;
+            isDrawing = true;
+            drawCtx.beginPath();
+            drawCtx.moveTo(e.clientX, e.clientY - 64);
+        });
+
+        drawCanvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing || !penActive) return;
+            drawCtx.strokeStyle = penColor;
+            drawCtx.lineWidth = 3;
+            drawCtx.lineCap = 'round';
+            drawCtx.lineTo(e.clientX, e.clientY - 64);
+            drawCtx.stroke();
+        });
+
+        window.addEventListener('mouseup', () => { isDrawing = false; });
+
+        /* Particle Background */
+        const bgCanvas = document.getElementById('ambientBg');
+        const bgCtx = bgCanvas.getContext('2d');
+        let particles = [];
+
+        function initParticles() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 35; i++) {
+                particles.push({
+                    x: Math.random() * bgCanvas.width,
+                    y: Math.random() * bgCanvas.height,
+                    radius: Math.random() * 2 + 1,
+                    vy: -(Math.random() * 0.3 + 0.1),
+                    opacity: Math.random() * 0.5 + 0.1
+                });
+            }
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            particles.forEach(p => {
+                p.y += p.vy;
+                if (p.y < 0) p.y = bgCanvas.height;
+                bgCtx.fillStyle = isDarkMode ? `rgba(56, 189, 248, ${p.opacity})` : `rgba(37, 99, 235, ${p.opacity})`;
+                bgCtx.beginPath();
+                bgCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                bgCtx.fill();
+            });
+            requestAnimationFrame(animateBg);
+        }
+
+        initParticles();
+        animateBg();
+
+        /* Fullscreen Toggle */
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        /* Keyboard Hotkeys for Presentation Remote */
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'l' || e.key === 'L') toggleLaserPointer();
+            if (e.key === 'p' || e.key === 'P') togglePenTool();
+        });
+
+        /* KaTeX Auto Math Rendering Init */
+        window.onload = function () {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ]
+                });
+            }
+            goToSlide(0);
+        };
+    </script>
+</body>
+</html>
